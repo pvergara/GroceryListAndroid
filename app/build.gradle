@@ -1,18 +1,20 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
-def androidSupport = '24.1.1'
+apply plugin: 'com.neenbedankt.android-apt'
+def androidVersion = 24
+def androidSupport = "$androidVersion.1.1"
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion androidVersion
+    buildToolsVersion "24.0.0"
 
     defaultConfig {
         applicationId "com.ecos.grocerylist"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion androidVersion
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -22,12 +24,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:$androidSupport"
     compile "com.android.support:design:$androidSupport"
     compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    apt 'com.google.dagger:dagger-compiler:2.6'
+    compile 'com.google.dagger:dagger:2.6'
+    provided 'javax.annotation:jsr250-api:1.0'
 
     testCompile 'junit:junit:4.12'
-
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile project(':androidinfrastructure')
 }
