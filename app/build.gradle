@@ -6,7 +6,7 @@ android {
     compileSdkVersion androidVersion
     buildToolsVersion "24.0.0"
     defaultConfig {
-        applicationId "com.ecos.grocerylist"
+        applicationId "org.ecos.groceryList"
         minSdkVersion 15
         targetSdkVersion androidVersion
         versionCode 1

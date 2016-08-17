@@ -1,6 +1,6 @@
-package org.ecos.grocerylist.wireUp;
+package org.ecos.groceryList.wireUp;
 
-import org.ecos.grocerylist.MainActivity;
+import org.ecos.groceryList.MainActivity;
 
 import dagger.Component;
 

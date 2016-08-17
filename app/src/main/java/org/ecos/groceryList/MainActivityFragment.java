@@ -1,4 +1,4 @@
-package org.ecos.grocerylist;
+package org.ecos.groceryList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

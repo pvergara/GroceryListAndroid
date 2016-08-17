@@ -1,4 +1,4 @@
-package org.ecos.grocerylist;
+package org.ecos.groceryList;
 
 import org.junit.Test;
 

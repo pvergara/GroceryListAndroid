@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="org.ecos.grocerylist">
+          package="org.ecos.groceryList">
 
     <application
         android:allowBackup="true"

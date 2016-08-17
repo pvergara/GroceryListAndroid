@@ -1,10 +1,10 @@
-package org.ecos.grocerylist.application;
+package org.ecos.groceryList.application;
 
 import android.app.Application;
 
-import org.ecos.grocerylist.wireUp.AndroidInfrastructureComponent;
-import org.ecos.grocerylist.wireUp.AndroidInfrastructureModule;
-import org.ecos.grocerylist.wireUp.DaggerAndroidInfrastructureComponent;
+import org.ecos.groceryList.wireUp.AndroidInfrastructureComponent;
+import org.ecos.groceryList.wireUp.AndroidInfrastructureModule;
+import org.ecos.groceryList.wireUp.DaggerAndroidInfrastructureComponent;
 
 public class GroceryListApplication extends Application {
 

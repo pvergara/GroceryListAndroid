@@ -1,4 +1,4 @@
-package org.ecos.grocerylist;
+package org.ecos.groceryList;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,7 +10,7 @@ import android.view.View;
 
 import org.ecos.android.infrastructure.ui.UserCommunicationService;
 import org.ecos.android.infrastructure.ui.UserCommunicationServiceImpl;
-import org.ecos.grocerylist.application.GroceryListApplication;
+import org.ecos.groceryList.application.GroceryListApplication;
 
 import javax.inject.Inject;
 

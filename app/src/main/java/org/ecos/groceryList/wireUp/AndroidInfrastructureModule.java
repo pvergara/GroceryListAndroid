@@ -1,4 +1,4 @@
-package org.ecos.grocerylist.wireUp;
+package org.ecos.groceryList.wireUp;
 
 import org.ecos.android.infrastructure.ui.UserCommunicationService;
 import org.ecos.android.infrastructure.ui.UserCommunicationServiceImpl;
