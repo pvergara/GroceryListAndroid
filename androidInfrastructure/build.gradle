@@ -1,19 +1,15 @@
 apply plugin: 'com.android.library'
 def androidVersion = 24
 def androidSupport = "$androidVersion.1.1"
-
 android {
     compileSdkVersion androidVersion
     buildToolsVersion "23.0.3"
-
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion androidVersion
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -22,7 +18,6 @@ android {
         }
     }
 }
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

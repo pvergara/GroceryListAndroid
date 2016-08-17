@@ -1,1 +1,1 @@
-include ':app', ':androidinfrastructure', ':androidinfrastructure'
+include ':app', ':androidInfrastructure'

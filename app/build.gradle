@@ -1,12 +1,10 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'android-apt'
 def androidVersion = 24
 def androidSupport = "$androidVersion.1.1"
-
 android {
     compileSdkVersion androidVersion
     buildToolsVersion "24.0.0"
-
     defaultConfig {
         applicationId "com.ecos.grocerylist"
         minSdkVersion 15
@@ -14,7 +12,6 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -22,7 +19,6 @@ android {
         }
     }
 }
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:$androidSupport"
@@ -32,7 +28,6 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.6'
     compile 'com.google.dagger:dagger:2.6'
     provided 'javax.annotation:jsr250-api:1.0'
-
     testCompile 'junit:junit:4.12'
-    compile project(':androidinfrastructure')
+    compile project(':androidInfrastructure')
 }
