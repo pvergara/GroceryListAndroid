@@ -1,43 +1,62 @@
 package org.ecos.groceryList.views;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import org.ecos.groceryList.R;
+import org.ecos.groceryList.views.adapters.CustomAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ListCreationFragment extends ListFragment {
+@SuppressWarnings("FieldCanBeLocal")
+public class ListCreationFragment extends Fragment {
 
-    private final ArrayList<String> my_array;
+    public static final boolean ATTACH_TO_ROOT = true;
+    private final ArrayList<String> mCollection;
+    private FragmentActivity mActivity;
+
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLayoutManager;
+    private CustomAdapter mAdapter;
 
     public ListCreationFragment() {
-        my_array = new ArrayList<>();
-        my_array.addAll(Arrays.asList("1","2","3","4","5","6","7","8","9","10","1","2","3","4","5","6","7","8","9","10"));
+        mCollection = new ArrayList<>();
+        initData();
+
+        loadDependencies();
+    }
+
+    private void loadDependencies() {
+        mActivity = getActivity();
+        mLayoutManager = new LinearLayoutManager(mActivity);
+
+    }
+
+    private void initData() {
+        mCollection.addAll(Arrays.asList("1","2","3","4","5","6","7","8","9","10","1","2","3","4","5","6","7","8","9","10"));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list_creation, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_list_creation, container, !ATTACH_TO_ROOT);
+//        ButterKnife.bind(this, rootView);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new CustomAdapter(mCollection);
+        // Set CustomAdapter as the adapter for RecyclerView.
+        mRecyclerView.setAdapter(mAdapter);
+
+        return rootView;
     }
 
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.e(ListCreationFragment.class.getCanonicalName(),"eeeeeeeeoooooooo");
-        super.onActivityCreated(savedInstanceState);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_list_item_1, my_array);
-        setListAdapter(adapter);
-
-        adapter.notifyDataSetChanged();
-        Log.e(ListCreationFragment.class.getCanonicalName(),"ooooooooeeeeeeee");
-    }
 }

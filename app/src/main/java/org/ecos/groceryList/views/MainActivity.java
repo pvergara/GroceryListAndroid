@@ -1,18 +1,14 @@
 package org.ecos.groceryList.views;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.ecos.android.infrastructure.ui.UserCommunicationService;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.application.GroceryListApplication;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,8 +20,6 @@ public class MainActivity extends AppCompatActivity implements org.ecos.android.
     private GroceryListApplication mApplication;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @Inject
-    UserCommunicationService mUserCommunicationService;
 
 
     @Override
@@ -36,22 +30,7 @@ public class MainActivity extends AppCompatActivity implements org.ecos.android.
 
         loadDependencies();
 
-        addFragmentIfNotPreviouslyAdded(ListCreationFragment.class, R.id.fragment3);
-        addFragmentIfNotPreviouslyAdded(ItemFragment.class, R.id.fragment4);
-    }
-
-    @SuppressWarnings("TryWithIdenticalCatches")
-    private <T extends Fragment> void addFragmentIfNotPreviouslyAdded(Class<T> fragmentClass, int fragmentContainerId){
-        if (mFragmentManager.findFragmentById(fragmentContainerId) == null) {
-            try {
-                T fragment = fragmentClass.newInstance();
-                getSupportFragmentManager().beginTransaction().add(fragmentContainerId,fragment).commit();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            }
-        }
+        addTheFragments(savedInstanceState);
     }
 
     private void loadDependencies() {
@@ -61,6 +40,19 @@ public class MainActivity extends AppCompatActivity implements org.ecos.android.
         mApplication.getAndroidInfrastructureComponent().inject(this);
 
         ButterKnife.bind(this);
+    }
+
+    private void addTheFragments(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            ListCreationFragment listCreationFragment = new ListCreationFragment();
+            ItemFragment itemFragment = new ItemFragment();
+
+            mFragmentManager.
+                beginTransaction().
+                replace(R.id.list_creation_fragment_container, listCreationFragment).
+                replace(R.id.item_fragment_container, itemFragment).
+                commit();
+        }
     }
 
     @Override
