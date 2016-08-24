@@ -4,6 +4,9 @@ apply plugin: 'android-apt'
 def androidVersion = 24
 def androidSupport = "$androidVersion.2.0"
 def buildToolsV = "$androidVersion.0.1"
+def dagger = "2.6"
+def butterKnife = "8.2.1"
+def jUnit = "4.12"
 
 android {
     compileSdkVersion androidVersion
@@ -24,15 +27,21 @@ android {
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
     compile "com.android.support:appcompat-v7:$androidSupport"
     compile "com.android.support:design:$androidSupport"
+    compile "com.android.support:recyclerview-v7:$androidSupport"
+    compile "com.android.support:support-v4:$androidSupport"
+
     compile project(':androidInfrastructure')
-    compile 'com.jakewharton:butterknife:8.2.1'
-    compile 'com.google.dagger:dagger:2.6'
-    compile 'com.android.support:support-v4:24.2.0'
-    testCompile 'junit:junit:4.12'
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
-    apt 'com.google.dagger:dagger-compiler:2.6'
+
+    compile "com.jakewharton:butterknife:$butterKnife"
+    apt "com.jakewharton:butterknife-compiler:$butterKnife"
+
+    compile "com.google.dagger:dagger:$dagger"
+    apt "com.google.dagger:dagger-compiler:$dagger"
+
+    testCompile "junit:junit:$jUnit"
+
     provided 'javax.annotation:jsr250-api:1.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
 }

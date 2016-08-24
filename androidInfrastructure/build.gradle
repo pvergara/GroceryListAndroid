@@ -1,6 +1,9 @@
 apply plugin: 'com.android.library'
+
 def androidVersion = 24
-def androidSupport = "$androidVersion.1.1"
+def androidSupport = "$androidVersion.2.0"
+def jUnit = "4.12"
+
 android {
     compileSdkVersion androidVersion
     buildToolsVersion "23.0.3"
@@ -14,16 +17,19 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles 'proguard-rules.pro'
         }
     }
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    
     compile "com.android.support:appcompat-v7:$androidSupport"
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:24.1.1'
+    compile "com.android.support:design:$androidSupport"
+
+    testCompile "junit:junit:$jUnit"
 }
