@@ -15,6 +15,10 @@ import org.ecos.groceryList.views.adapters.CustomAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 @SuppressWarnings("FieldCanBeLocal")
 public class ListCreationFragment extends Fragment {
 
@@ -22,9 +26,11 @@ public class ListCreationFragment extends Fragment {
     private final ArrayList<String> mCollection;
     private FragmentActivity mActivity;
 
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private CustomAdapter mAdapter;
+    private Unbinder mUnbinder;
 
     public ListCreationFragment() {
         mCollection = new ArrayList<>();
@@ -46,8 +52,7 @@ public class ListCreationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list_creation, container, !ATTACH_TO_ROOT);
-//        ButterKnife.bind(this, rootView);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -58,5 +63,9 @@ public class ListCreationFragment extends Fragment {
         return rootView;
     }
 
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
 
 }

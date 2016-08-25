@@ -10,31 +10,33 @@ import org.ecos.groceryList.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder>  {
-    private final ArrayList<String> mCollection;
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
-
-        public ViewHolder(View v) {
-            super(v);
-            textView = (TextView) v.findViewById(R.id.textView);
-        }
-
-        public TextView getTextView() {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.textView) TextView textView;
+        TextView getTextView() {
             return textView;
         }
+
+        ViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
     }
+
+    private final ArrayList<String> mCollection;
 
     public CustomAdapter(ArrayList<String> collection) {
         mCollection = collection;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup rootViewGroup, int viewType) {
         View v = LayoutInflater.
-            from(parent.getContext()).
-            inflate(R.layout.fragment_list_creation_item, parent, false);
+            from(rootViewGroup.getContext()).
+            inflate(R.layout.fragment_list_creation_item, rootViewGroup, false);
 
         return new ViewHolder(v);
     }
@@ -48,5 +50,4 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public int getItemCount() {
         return mCollection.size();
     }
-
 }
