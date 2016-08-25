@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:transcriptMode="alwaysScroll"
-    tools:context="org.ecos.groceryList.views.ListCreationFragment"
+    tools:context="org.ecos.groceryList.views.ListCreationView"
     >
 
     <android.support.v7.widget.RecyclerView

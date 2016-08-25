@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity implements org.ecos.android.
 
     private void addTheFragments(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            ListCreationFragment listCreationFragment = new ListCreationFragment();
+            ListCreationView listCreationView = new ListCreationView();
             ItemFragment itemFragment = new ItemFragment();
 
             mFragmentManager.
                 beginTransaction().
-                replace(R.id.list_creation_fragment_container, listCreationFragment).
+                replace(R.id.list_creation_fragment_container, listCreationView).
                 replace(R.id.item_fragment_container, itemFragment).
                 commit();
         }

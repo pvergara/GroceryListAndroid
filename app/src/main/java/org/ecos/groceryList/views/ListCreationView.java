@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class ListCreationFragment extends Fragment {
+public class ListCreationView extends Fragment implements org.ecos.android.infrastructure.mvvm.view.View {
 
     public static final boolean ATTACH_TO_ROOT = true;
     private final ArrayList<String> mCollection;
@@ -32,7 +32,7 @@ public class ListCreationFragment extends Fragment {
     private CustomAdapter mAdapter;
     private Unbinder mUnbinder;
 
-    public ListCreationFragment() {
+    public ListCreationView() {
         mCollection = new ArrayList<>();
         initData();
 
@@ -42,7 +42,7 @@ public class ListCreationFragment extends Fragment {
     private void loadDependencies() {
         mActivity = getActivity();
         mLayoutManager = new LinearLayoutManager(mActivity);
-
+        mAdapter = new CustomAdapter(mCollection);
     }
 
     private void initData() {
@@ -54,13 +54,14 @@ public class ListCreationFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_list_creation, container, !ATTACH_TO_ROOT);
         mUnbinder = ButterKnife.bind(this, rootView);
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        mAdapter = new CustomAdapter(mCollection);
-        // Set CustomAdapter as the adapter for RecyclerView.
-        mRecyclerView.setAdapter(mAdapter);
+        initThe(mRecyclerView);
 
         return rootView;
+    }
+
+    private void initThe(RecyclerView recyclerView) {
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override public void onDestroyView() {
@@ -68,4 +69,8 @@ public class ListCreationFragment extends Fragment {
         mUnbinder.unbind();
     }
 
+    @Override
+    public void runOnUiThread(Runnable runnable) {
+        mActivity.runOnUiThread(runnable);
+    }
 }
