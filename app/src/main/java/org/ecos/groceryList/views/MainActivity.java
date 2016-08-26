@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements org.ecos.android.
         mFragmentManager = getSupportFragmentManager();
         mApplication = (GroceryListApplication) getApplication();
 
-        mApplication.getAndroidInfrastructureComponent().inject(this);
+        mApplication.getGeneralComponent().inject(this);
 
         ButterKnife.bind(this);
     }

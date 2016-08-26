@@ -2,25 +2,28 @@ package org.ecos.groceryList.application;
 
 import android.app.Application;
 
-import org.ecos.groceryList.wireUp.AndroidInfrastructureComponent;
-import org.ecos.groceryList.wireUp.AndroidInfrastructureModule;
-import org.ecos.groceryList.wireUp.DaggerAndroidInfrastructureComponent;
+import org.ecos.groceryList.wireUp.DaggerGeneralComponent;
+import org.ecos.groceryList.wireUp.GeneralComponent;
+import org.ecos.groceryList.wireUp.ViewModelsModule;
 
 public class GroceryListApplication extends Application {
 
-    private AndroidInfrastructureComponent mAndroidInfrastructureComponent;
+    private GeneralComponent mGeneralComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mAndroidInfrastructureComponent = DaggerAndroidInfrastructureComponent.
+        mGeneralComponent = DaggerGeneralComponent.
             builder().
-            androidInfrastructureModule(new AndroidInfrastructureModule()).
+//            androidInfrastructureModule(new AndroidInfrastructureModule()).
+            viewModelsModule(new ViewModelsModule()).
             build();
+
     }
 
-    public AndroidInfrastructureComponent getAndroidInfrastructureComponent() {
-        return mAndroidInfrastructureComponent;
-    }    
+    public GeneralComponent getGeneralComponent() {
+        return mGeneralComponent;
+    }
+
 }

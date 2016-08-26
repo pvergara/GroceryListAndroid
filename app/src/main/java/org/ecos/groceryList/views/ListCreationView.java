@@ -1,5 +1,6 @@
 package org.ecos.groceryList.views;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.ecos.groceryList.R;
+import org.ecos.groceryList.application.GroceryListApplication;
 import org.ecos.groceryList.viewModels.ListCreationViewModel;
-import org.ecos.groceryList.viewModels.ListCreationViewModelImpl;
 import org.ecos.groceryList.views.adapters.CustomAdapter;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,11 +30,17 @@ public class ListCreationView extends Fragment implements org.ecos.android.infra
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
+
     private CustomAdapter mAdapter;
     private Unbinder mUnbinder;
-    private ListCreationViewModel mViewModel;
 
-    public ListCreationView() {
+    @Inject
+    ListCreationViewModel mViewModel;
+    private GroceryListApplication mApplication;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
         loadDependencies();
 
         initTheViewModel();
@@ -40,8 +49,12 @@ public class ListCreationView extends Fragment implements org.ecos.android.infra
     private void loadDependencies() {
         mActivity = getActivity();
         mLayoutManager = new LinearLayoutManager(mActivity);
-        mViewModel = new ListCreationViewModelImpl();
         mAdapter = new CustomAdapter();
+
+        mApplication = (GroceryListApplication) mActivity.getApplication();
+
+        mApplication.getGeneralComponent().inject(this);
+
     }
 
     private void initTheViewModel() {
