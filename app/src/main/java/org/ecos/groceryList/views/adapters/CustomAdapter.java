@@ -26,11 +26,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
 
-    private final ArrayList<String> mCollection;
-
-    public CustomAdapter(ArrayList<String> collection) {
+    private ArrayList<String> mCollection;
+    public void setCollection(ArrayList<String> collection) {
         mCollection = collection;
     }
+
+    public CustomAdapter() {
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup rootViewGroup, int viewType) {

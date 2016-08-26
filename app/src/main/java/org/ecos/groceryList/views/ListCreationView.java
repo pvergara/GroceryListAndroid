@@ -10,10 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.ecos.groceryList.R;
+import org.ecos.groceryList.viewModels.ListCreationViewModel;
+import org.ecos.groceryList.viewModels.ListCreationViewModelImpl;
 import org.ecos.groceryList.views.adapters.CustomAdapter;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +22,6 @@ import butterknife.Unbinder;
 public class ListCreationView extends Fragment implements org.ecos.android.infrastructure.mvvm.view.View {
 
     public static final boolean ATTACH_TO_ROOT = true;
-    private final ArrayList<String> mCollection;
     private FragmentActivity mActivity;
 
     @BindView(R.id.recyclerView)
@@ -31,23 +29,26 @@ public class ListCreationView extends Fragment implements org.ecos.android.infra
     private LinearLayoutManager mLayoutManager;
     private CustomAdapter mAdapter;
     private Unbinder mUnbinder;
+    private ListCreationViewModel mViewModel;
 
     public ListCreationView() {
-        mCollection = new ArrayList<>();
-        initData();
-
         loadDependencies();
+
+        initTheViewModel();
     }
 
     private void loadDependencies() {
         mActivity = getActivity();
         mLayoutManager = new LinearLayoutManager(mActivity);
-        mAdapter = new CustomAdapter(mCollection);
+        mViewModel = new ListCreationViewModelImpl();
+        mAdapter = new CustomAdapter();
     }
 
-    private void initData() {
-        mCollection.addAll(Arrays.asList("1","2","3","4","5","6","7","8","9","10","1","2","3","4","5","6","7","8","9","10"));
+    private void initTheViewModel() {
+        mViewModel.init();
+        mAdapter.setCollection(mViewModel.getCollection());
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
