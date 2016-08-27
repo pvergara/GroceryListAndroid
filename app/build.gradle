@@ -9,6 +9,9 @@ def dagger = "2.6"
 def butterKnife = "8.2.1"
 def jUnit = "4.12"
 
+def RxAndroid = "1.2.1"
+def RxJava = "1.1.9"
+
 android {
     compileSdkVersion androidVersion
     buildToolsVersion "$buildToolsV"
@@ -53,6 +56,6 @@ dependencies {
 
 
 
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.9'
+    compile "io.reactivex:rxandroid:$RxAndroid"
+    compile "io.reactivex:rxjava:$RxJava"
 }
