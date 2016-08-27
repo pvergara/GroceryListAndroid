@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 
 import org.ecos.groceryList.R;
 
-public class ItemFragment extends Fragment {
+public class ItemView extends Fragment {
 
-    public ItemFragment() {
+    public ItemView() {
         // Required empty public constructor
     }
 
