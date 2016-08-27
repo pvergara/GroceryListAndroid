@@ -2,14 +2,13 @@ package org.ecos.groceryList.views;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.ecos.android.infrastructure.mvvm.view.FragmentViewBase;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.application.GroceryListApplication;
 import org.ecos.groceryList.viewModels.ListCreationViewModel;
@@ -22,10 +21,9 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class ListCreationView extends Fragment implements org.ecos.android.infrastructure.mvvm.view.View {
+public class ListCreationView extends FragmentViewBase {
 
     public static final boolean ATTACH_TO_ROOT = true;
-    private FragmentActivity mActivity;
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -61,11 +59,6 @@ public class ListCreationView extends Fragment implements org.ecos.android.infra
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
-    }
-
-    @Override
-    public void runOnUiThread(Runnable runnable) {
-        mActivity.runOnUiThread(runnable);
     }
 
     private void loadDependencies() {
