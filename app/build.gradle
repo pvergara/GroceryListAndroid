@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 
 def androidVersion = 24
 def androidSupport = "$androidVersion.2.0"
@@ -23,6 +24,10 @@ android {
             minifyEnabled false
             proguardFiles 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     return true
 }
