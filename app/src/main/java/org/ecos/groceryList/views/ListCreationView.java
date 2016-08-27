@@ -36,6 +36,7 @@ public class ListCreationView extends Fragment implements org.ecos.android.infra
 
     @Inject
     ListCreationViewModel mViewModel;
+
     private GroceryListApplication mApplication;
 
     @Override
@@ -44,6 +45,27 @@ public class ListCreationView extends Fragment implements org.ecos.android.infra
         loadDependencies();
 
         initTheViewModel();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_list_creation, container, !ATTACH_TO_ROOT);
+        mUnbinder = ButterKnife.bind(this, rootView);
+
+        initThe(mRecyclerView);
+
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
+
+    @Override
+    public void runOnUiThread(Runnable runnable) {
+        mActivity.runOnUiThread(runnable);
     }
 
     private void loadDependencies() {
@@ -62,29 +84,8 @@ public class ListCreationView extends Fragment implements org.ecos.android.infra
         mAdapter.setCollection(mViewModel.getCollection());
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_list_creation, container, !ATTACH_TO_ROOT);
-        mUnbinder = ButterKnife.bind(this, rootView);
-
-        initThe(mRecyclerView);
-
-        return rootView;
-    }
-
     private void initThe(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
-    }
-
-    @Override public void onDestroyView() {
-        super.onDestroyView();
-        mUnbinder.unbind();
-    }
-
-    @Override
-    public void runOnUiThread(Runnable runnable) {
-        mActivity.runOnUiThread(runnable);
     }
 }
