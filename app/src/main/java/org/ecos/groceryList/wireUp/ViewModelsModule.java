@@ -12,8 +12,8 @@ import dagger.Provides;
 @Module
 public class ViewModelsModule {
     @Provides
-    ListCreationViewModel providesListCreationViewModel(){
-        return new ListCreationViewModelImpl();
+    ListCreationViewModel providesListCreationViewModel(MessagingService messagingService){
+        return new ListCreationViewModelImpl(messagingService);
     }
 
     @Provides
