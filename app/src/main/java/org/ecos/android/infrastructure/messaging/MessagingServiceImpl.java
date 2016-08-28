@@ -15,13 +15,15 @@ public class MessagingServiceImpl implements MessagingService {
     }
 
     @Override
-    public void registerMe(Object object) {
-        mEventBus.register(object);
+    public void registerMe(Object me) {
+
+        if(!mEventBus.isRegistered(me))
+            mEventBus.register(me);
     }
 
     @Override
-    public void unRegisterMe(Object object) {
-        if(mEventBus.isRegistered(object))
-            mEventBus.unregister(object);
+    public void unRegisterMe(Object me) {
+        if(mEventBus.isRegistered(me))
+            mEventBus.unregister(me);
     }
 }
