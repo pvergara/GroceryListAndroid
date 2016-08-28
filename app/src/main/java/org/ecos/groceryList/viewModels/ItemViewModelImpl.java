@@ -2,11 +2,12 @@ package org.ecos.groceryList.viewModels;
 
 import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.mvvm.binding.OnChangeListener;
-import org.ecos.android.infrastructure.mvvm.binding.Property;
-import org.ecos.groceryList.R;
 import org.ecos.groceryList.events.ItemSendEvent;
 
 import javax.inject.Inject;
+
+import static org.ecos.groceryList.viewModels.ItemViewModel.Properties.changeActionStatus;
+import static org.ecos.groceryList.viewModels.ItemViewModel.Properties.changeItemText;
 
 
 public class ItemViewModelImpl implements ItemViewModel {
@@ -36,7 +37,7 @@ public class ItemViewModelImpl implements ItemViewModel {
     }
 
     private void cleanItemText() {
-        mOnChangeListener.onPropertyChange(Property.from(R.id.itemViewItemText),"");
+        mOnChangeListener.onPropertyChange(changeItemText,"");
     }
 
     @Override
@@ -49,6 +50,6 @@ public class ItemViewModelImpl implements ItemViewModel {
         boolean enableActionButton = true;
         if (itemText.length()==0)
             enableActionButton = false;
-        mOnChangeListener.onPropertyChange(Property.from(R.id.itemViewActionButton),enableActionButton);
+        mOnChangeListener.onPropertyChange(changeActionStatus,enableActionButton);
     }
 }

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import org.ecos.android.infrastructure.mvvm.binding.BindingAction;
 import org.ecos.android.infrastructure.mvvm.binding.BindingManager;
-import org.ecos.android.infrastructure.mvvm.binding.Property;
 import org.ecos.android.infrastructure.mvvm.view.FragmentViewBase;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.application.GroceryListApplication;
@@ -23,6 +22,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
+
+import static org.ecos.groceryList.viewModels.ItemViewModel.Properties.changeActionStatus;
+import static org.ecos.groceryList.viewModels.ItemViewModel.Properties.changeItemText;
 
 public class ItemView extends FragmentViewBase {
     private Unbinder mUnbinder;
@@ -59,8 +61,8 @@ public class ItemView extends FragmentViewBase {
 
     //TODO: To abstract
     private void initTheViewModel() {
-        mBindingManager.manageOnChangeFor(Property.from(R.id.itemViewItemText),mBindingActionOnItemTextChange,this);
-        mBindingManager.manageOnChangeFor(Property.from(R.id.itemViewActionButton),mBindingActionOnActionButtonChange,this);
+        mBindingManager.manageOnChangeFor(changeItemText,mBindingActionOnItemTextChange,this);
+        mBindingManager.manageOnChangeFor(changeActionStatus,mBindingActionOnActionButtonChange,this);
 
         mViewModel.setOnchangeListener(mBindingManager.getOnChangeListener());
         mViewModel.init();

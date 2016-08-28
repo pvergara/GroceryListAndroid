@@ -14,7 +14,6 @@ import org.ecos.android.infrastructure.mvvm.view.FragmentViewBase;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.application.GroceryListApplication;
 import org.ecos.groceryList.viewModels.ListCreationViewModel;
-import org.ecos.groceryList.viewModels.ListCreationViewModel.Properties;
 import org.ecos.groceryList.views.adapters.CustomAdapter;
 
 import javax.inject.Inject;
@@ -22,6 +21,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static org.ecos.groceryList.viewModels.ListCreationViewModel.Properties.addItem;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class ListCreationView extends FragmentViewBase {
@@ -80,7 +81,7 @@ public class ListCreationView extends FragmentViewBase {
     }
 
     private void initTheViewModel() {
-        mBindingManager.manageOnChangeFor(Properties.addItem,mBindingActionOnGroceryListAddItem,this);
+        mBindingManager.manageOnChangeFor(addItem,mBindingActionOnGroceryListAddItem,this);
 
         mViewModel.setOnchangeListener(mBindingManager.getOnChangeListener());
         mViewModel.init();

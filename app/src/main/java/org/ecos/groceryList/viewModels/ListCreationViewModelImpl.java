@@ -9,6 +9,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static org.ecos.groceryList.viewModels.ListCreationViewModel.Properties.addItem;
+
 public class ListCreationViewModelImpl implements ListCreationViewModel {
     private final MessagingService mMessagingService;
     private ArrayList<String> mCollection;
@@ -54,7 +56,7 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
     private void addNewItemWith(CharSequence itemText) {
         if(itemText!=null) {
             mCollection.add(itemText.toString());
-            mOnChangeListener.onPropertyChange(Properties.addItem, itemText);
+            mOnChangeListener.onPropertyChange(addItem, itemText);
         }
     }
 
