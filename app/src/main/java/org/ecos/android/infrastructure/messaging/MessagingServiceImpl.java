@@ -13,4 +13,15 @@ public class MessagingServiceImpl implements MessagingService {
     public <T> void send(T message) {
         mEventBus.postSticky(message);
     }
+
+    @Override
+    public void registerMe(Object object) {
+        mEventBus.register(object);
+    }
+
+    @Override
+    public void unRegisterMe(Object object) {
+        if(mEventBus.isRegistered(object))
+            mEventBus.unregister(object);
+    }
 }
