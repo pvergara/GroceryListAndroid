@@ -11,7 +11,7 @@ public class BindingManagerImpl implements BindingManager, OnChangeListener {
     private Map<Property, View> mViews = new HashMap<>();
 
     @Override
-    public void manageOnChangeFor(Property property, BindingAction bindingAction, View view) {
+    public <T> void manageOnChangeFor(Property property, BindingAction<T> bindingAction, View view) {
         mActions.put(property, bindingAction);
         mViews.put(property, view);
     }
@@ -22,8 +22,8 @@ public class BindingManagerImpl implements BindingManager, OnChangeListener {
     }
 
     @Override
-    public void onChange(Property property, final Object sourceElementValue) {
-        if (mActions.containsKey(property) && mActions.containsKey(property)) {
+    public <T> void onPropertyChange(Property property, final T sourceElementValue) {
+        if (mActions.containsKey(property) && mViews.containsKey(property)) {
             final BindingAction action = mActions.get(property);
             View view = mViews.get(property);
             Runnable runnable = new Runnable() {

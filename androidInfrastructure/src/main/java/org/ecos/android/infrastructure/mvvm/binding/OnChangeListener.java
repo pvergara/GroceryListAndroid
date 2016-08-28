@@ -1,5 +1,5 @@
 package org.ecos.android.infrastructure.mvvm.binding;
 
 public interface OnChangeListener {
-    void onChange(Property elementName, Object sourceElementValue);
+    <T> void onPropertyChange(Property elementName, T sourceElementValue);
 }
