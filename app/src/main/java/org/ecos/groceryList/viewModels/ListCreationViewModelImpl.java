@@ -45,9 +45,10 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
 
     private void initData() {
         mCollection.addAll(Arrays.asList(
-            "Lechuga","Tomate","Arroz","Leche","Salchichas","Lavavajillas","Papel higiénico",
+            "Lechuga","Tomate","Arroz","Leche","Salchichas","Lavavajillas","Papel higiénico"/*,
             "Yogur de beber","Pavo","Queso","Comida gatos","Sopa 'Soba'","Detergente","Suaviante",
-            "Café","Galletas","Agua","Bebida de cola","Puré de patatas","Manzana"));
+            "Café","Galletas","Agua","Bebida de cola","Puré de patatas","Manzana"*/
+            ));
     }
 
     //TODO: ABSTRACTION (register inside Messaging Service)
