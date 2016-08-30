@@ -13,6 +13,8 @@ public interface ItemViewModel {
 
     void setItemText(CharSequence itemText);
 
+    void deInit();
+
     void setOnchangeListener(OnChangeListener onChangeListener);
 
     void sendItemText();

@@ -3,6 +3,9 @@ package org.ecos.groceryList.viewModels;
 import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.mvvm.binding.OnChangeListener;
 import org.ecos.groceryList.events.ItemSendEvent;
+import org.ecos.groceryList.events.ItemSendToUpdateEvent;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
@@ -18,6 +21,12 @@ public class ItemViewModelImpl implements ItemViewModel {
     @Inject
     public ItemViewModelImpl(MessagingService messagingService) {
         mMessagingService = messagingService;
+        messagingService.registerMe(this);
+    }
+
+    @Override
+    public void deInit(){
+        mMessagingService.unRegisterMe(this);
     }
 
     @Override
@@ -52,4 +61,14 @@ public class ItemViewModelImpl implements ItemViewModel {
             enableActionButton = false;
         mOnChangeListener.onPropertyChange(changeActionStatus,enableActionButton);
     }
+
+    //TODO: ABSTRACTION (register inside Messaging Service)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onEvent(ItemSendToUpdateEvent event) {
+        showItem(event.getItemText());
+    }
+
+    private void showItem(String itemText) {mOnChangeListener.onPropertyChange(changeItemText,itemText);
+    }
+
 }

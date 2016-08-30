@@ -83,6 +83,7 @@ public class ItemView extends FragmentViewBase {
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+        mViewModel.deInit();
     }
 
     @OnTextChanged(R.id.itemViewItemText)

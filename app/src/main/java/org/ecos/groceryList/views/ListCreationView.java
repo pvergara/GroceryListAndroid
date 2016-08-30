@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.mvvm.binding.BindingAction;
 import org.ecos.android.infrastructure.mvvm.binding.BindingManager;
 import org.ecos.android.infrastructure.mvvm.view.FragmentViewBase;
@@ -40,6 +41,8 @@ public class ListCreationView extends FragmentViewBase {
     ListCreationViewModel mViewModel;
     @Inject
     BindingManager mBindingManager;
+    @Inject
+    MessagingService mMessagingService;
 
     private GroceryListApplication mApplication;
 
@@ -70,13 +73,13 @@ public class ListCreationView extends FragmentViewBase {
 
     private void loadDependencies(View rootView) {
         mActivity = getActivity();
-        mLayoutManager = new LinearLayoutManager(mActivity);
-        mAdapter = new CustomAdapter();
-
         mApplication = (GroceryListApplication) mActivity.getApplication();
-
         mApplication.getGeneralComponent().inject(this);
         mUnbinder = ButterKnife.bind(this, rootView);
+
+        mLayoutManager = new LinearLayoutManager(mActivity);
+        mAdapter = new CustomAdapter(mMessagingService);
+
 
     }
 
@@ -90,7 +93,6 @@ public class ListCreationView extends FragmentViewBase {
     }
 
     private void initThe(RecyclerView recyclerView) {
-        mLayoutManager.setStackFromEnd(true);
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
@@ -99,7 +101,6 @@ public class ListCreationView extends FragmentViewBase {
 
     private BindingAction<CharSequence> mBindingActionOnGroceryListAddItem = sentValue ->{
         mAdapter.notifyDataSetChanged();
-        mGroceryListView.scrollToPosition(mAdapter.getItemCount() - 1);
     };
 
 }
