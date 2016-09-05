@@ -1,6 +1,6 @@
 package org.ecos.groceryList.dtos.items;
 
-class Name {
+public class Name {
     private CharSequence mItemName;
 
     private Name(CharSequence itemName) {
@@ -30,8 +30,6 @@ class Name {
 
     @Override
     public String toString() {
-        return "Name{" +
-                "mItemName=" + mItemName +
-                '}';
+        return mItemName.toString();
     }
 }

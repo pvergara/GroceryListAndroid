@@ -1,6 +1,6 @@
 package org.ecos.groceryList.dtos.items;
 
-class Quantity {
+public class Quantity {
     private float mQuantityAsDecimal;
 
     private Quantity(float quantityAsDecimal) {

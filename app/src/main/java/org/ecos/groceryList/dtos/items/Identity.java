@@ -2,7 +2,7 @@ package org.ecos.groceryList.dtos.items;
 
 import java.util.UUID;
 
-class Identity {
+public class Identity {
 
     private CharSequence mIdentity;
 

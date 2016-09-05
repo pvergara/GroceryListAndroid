@@ -9,9 +9,8 @@ import android.widget.Toast;
 
 import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.groceryList.R;
+import org.ecos.groceryList.dtos.Items;
 import org.ecos.groceryList.events.ItemSendToUpdateEvent;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,8 +49,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
     }
 
-    private ArrayList<String> mCollection;
-    public void setCollection(ArrayList<String> collection) {
+    private Items mCollection;
+    public void setCollection(Items collection) {
         mCollection = collection;
     }
 
@@ -71,7 +70,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String itemText = mCollection.get(position);
+        String itemText = mCollection.get(position).getName().toString();
         holder.bind(itemText);
 
         holder.getTextView().setText(itemText);

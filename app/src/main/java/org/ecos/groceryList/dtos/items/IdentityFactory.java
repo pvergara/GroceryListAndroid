@@ -1,5 +1,5 @@
 package org.ecos.groceryList.dtos.items;
 
-interface IdentityFactory {
+public interface IdentityFactory {
     Identity create();
 }

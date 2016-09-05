@@ -2,7 +2,7 @@ package org.ecos.groceryList.dtos.items;
 
 import android.support.annotation.NonNull;
 
-class Item {
+public class Item {
     private final Identity mIdentity;
 
     private Name mName;
@@ -55,5 +55,14 @@ class Item {
             ", mName=" + mName +
             ", mQuantity=" + mQuantity +
             '}';
+    }
+
+    public Identity getIdentity() {
+        return mIdentity;
+    }
+
+
+    public void setQuantity(Quantity quantity) {
+        this.mQuantity = quantity;
     }
 }

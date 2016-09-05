@@ -2,14 +2,14 @@ package org.ecos.groceryList.dtos.items;
 
 import java.util.List;
 
-class IdentitySecureCreator {
+public class IdentitySecureCreator {
     private IdentityFactory mFactory;
 
-    IdentitySecureCreator(IdentityFactory factory) {
+    public IdentitySecureCreator(IdentityFactory factory) {
         mFactory = factory;
     }
 
-    Identity createANonRepeatedIdentity(List<Identity> existentIdentities){
+    public Identity createANonRepeatedIdentity(List<Identity> existentIdentities){
         Identity cadidate = mFactory.create();
 
         int maxLoops = 30;

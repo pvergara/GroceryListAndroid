@@ -2,6 +2,8 @@ package org.ecos.groceryList.viewModels;
 
 import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.mvvm.binding.OnChangeListener;
+import org.ecos.groceryList.dtos.Items;
+import org.ecos.groceryList.dtos.items.Name;
 import org.ecos.groceryList.events.ItemSendEvent;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -13,10 +15,10 @@ import static org.ecos.groceryList.viewModels.ListCreationViewModel.Properties.a
 
 public class ListCreationViewModelImpl implements ListCreationViewModel {
     private final MessagingService mMessagingService;
-    private ArrayList<String> mCollection;
+    private Items mCollection;
     private OnChangeListener mOnChangeListener;
 
-    public ArrayList<String> getCollection() {
+    public Items getCollection() {
         return mCollection;
     }
 
@@ -39,13 +41,19 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
     }
 
     private void initTheList() {
-        mCollection = new ArrayList<>();
+        mCollection = new Items();
         initData();
     }
 
     private void initData() {
         mCollection.addAll(Arrays.asList(
-            "Lechuga","Tomate","Arroz","Leche","Salchichas","Lavavajillas","Papel higiénico"/*,
+                Name.from("Lechuga"),
+                Name.from("Tomate"),
+                Name.from("Arroz"),
+                Name.from("Leche"),
+                Name.from("Salchichas"),
+                Name.from("Lavavajillas"),
+                Name.from("Papel higiénico")/*,
             "Yogur de beber","Pavo","Queso","Comida gatos","Sopa 'Soba'","Detergente","Suaviante",
             "Café","Galletas","Agua","Bebida de cola","Puré de patatas","Manzana"*/
             ));
@@ -59,7 +67,7 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
 
     private void addNewItemWith(CharSequence itemText) {
         if(itemText!=null) {
-            mCollection.add(itemText.toString());
+            mCollection.add(Name.from(itemText));
             mOnChangeListener.onPropertyChange(addItem, itemText);
         }
     }
