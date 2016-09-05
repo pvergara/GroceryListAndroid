@@ -99,8 +99,6 @@ public class ListCreationView extends FragmentViewBase {
 
     }
 
-    private BindingAction<CharSequence> mBindingActionOnGroceryListAddItem = sentValue ->{
-        mAdapter.notifyDataSetChanged();
-    };
+    private BindingAction<CharSequence> mBindingActionOnGroceryListAddItem = sentValue -> mAdapter.notifyDataSetChanged();
 
 }
