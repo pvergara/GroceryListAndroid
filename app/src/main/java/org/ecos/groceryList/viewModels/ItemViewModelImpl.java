@@ -65,10 +65,11 @@ public class ItemViewModelImpl implements ItemViewModel {
     //TODO: ABSTRACTION (register inside Messaging Service)
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEvent(ItemSendToUpdateEvent event) {
-        showItem(event.getItemText());
+        showItem(event.getItem().getName().toString());
     }
 
-    private void showItem(String itemText) {mOnChangeListener.onPropertyChange(changeItemText,itemText);
+    private void showItem(String itemText) {
+        mOnChangeListener.onPropertyChange(changeItemText,itemText);
     }
 
 }

@@ -1,13 +1,15 @@
 package org.ecos.groceryList.events;
 
-public class ItemSendToUpdateEvent {
-    private String mItemText;
+import org.ecos.groceryList.dtos.items.Item;
 
-    public ItemSendToUpdateEvent(String itemText) {
+public class ItemSendToUpdateEvent {
+    private Item mItemText;
+
+    public ItemSendToUpdateEvent(Item itemText) {
         mItemText = itemText;
     }
 
-    public String getItemText() {
+    public Item getItem() {
         return mItemText;
     }
 }

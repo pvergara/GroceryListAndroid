@@ -5,11 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.dtos.Items;
+import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.events.ItemSendToUpdateEvent;
 
 import butterknife.BindView;
@@ -22,7 +22,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final MessagingService mMessagingService;
         @BindView(R.id.textView) TextView textView;
-        private String mItemText;
+
+        private Item mItem;
 
         TextView getTextView() {
             return textView;
@@ -38,14 +39,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
-            if(mMessagingService==null)
-                Toast.makeText(view.getContext(),mItemText,Toast.LENGTH_SHORT).show();
-            else
-                mMessagingService.send(new ItemSendToUpdateEvent(mItemText));
+            sendBackToUpdate();
         }
 
-        void bind(String itemText) {
-            mItemText = itemText;
+        private void sendBackToUpdate() {
+            mMessagingService.send(new ItemSendToUpdateEvent(mItem));
+        }
+
+        void bind(Item item) {
+            mItem = item;
         }
     }
 
@@ -70,10 +72,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String itemText = mCollection.get(position).getName().toString();
-        holder.bind(itemText);
+        Item item = mCollection.get(position);
 
-        holder.getTextView().setText(itemText);
+        holder.bind(item);
+
+        holder.getTextView().setText(item.getName().toString());
     }
 
     @Override
