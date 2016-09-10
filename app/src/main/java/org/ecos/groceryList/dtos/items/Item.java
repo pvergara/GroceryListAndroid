@@ -65,4 +65,8 @@ public class Item {
     public void setQuantity(Quantity quantity) {
         this.mQuantity = quantity;
     }
+
+    public Quantity getQuantity() {
+        return mQuantity;
+    }
 }

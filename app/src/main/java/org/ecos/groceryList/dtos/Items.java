@@ -10,9 +10,10 @@ import org.ecos.groceryList.dtos.items.Quantity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
-public class Items {
+public class Items implements Iterable<Item> {
     private final IdentitySecureCreator mSecureCreator;
     private List<Item> mItems;
 
@@ -54,5 +55,10 @@ public class Items {
 
     public Item get(int position) {
         return mItems.get(position);
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return mItems.iterator();
     }
 }

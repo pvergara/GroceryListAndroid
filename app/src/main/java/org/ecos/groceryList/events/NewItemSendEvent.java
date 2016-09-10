@@ -1,9 +1,9 @@
 package org.ecos.groceryList.events;
 
-public class ItemSendEvent {
+public class NewItemSendEvent {
     private CharSequence mItemText;
 
-    public ItemSendEvent(CharSequence itemText) {
+    public NewItemSendEvent(CharSequence itemText) {
         mItemText = itemText;
     }
 

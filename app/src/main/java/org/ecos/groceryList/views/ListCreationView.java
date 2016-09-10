@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static org.ecos.groceryList.viewModels.ListCreationViewModel.Properties.addItem;
+import static org.ecos.groceryList.viewModels.ListCreationViewModel.Properties.updateItem;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class ListCreationView extends FragmentViewBase {
@@ -85,6 +86,7 @@ public class ListCreationView extends FragmentViewBase {
 
     private void initTheViewModel() {
         mBindingManager.manageOnChangeFor(addItem,mBindingActionOnGroceryListAddItem,this);
+        mBindingManager.manageOnChangeFor(updateItem,mBindingActionOnGroceryListUpdateItem,this);
 
         mViewModel.setOnchangeListener(mBindingManager.getOnChangeListener());
         mViewModel.init();
@@ -100,5 +102,7 @@ public class ListCreationView extends FragmentViewBase {
     }
 
     private BindingAction<CharSequence> mBindingActionOnGroceryListAddItem = sentValue -> mAdapter.notifyDataSetChanged();
+
+    private BindingAction<Object> mBindingActionOnGroceryListUpdateItem = sentValue -> mAdapter.notifyDataSetChanged();
 
 }
