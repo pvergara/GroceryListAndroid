@@ -20,7 +20,7 @@ public class Name {
 
         Name name = (Name) o;
 
-        return mItemName.equals(name.mItemName);
+        return mItemName.toString().toLowerCase().equals(name.mItemName.toString().toLowerCase());
     }
 
     @Override
