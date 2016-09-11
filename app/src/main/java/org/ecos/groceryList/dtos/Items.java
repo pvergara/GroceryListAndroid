@@ -7,13 +7,13 @@ import org.ecos.groceryList.dtos.items.IdentitySecureCreator;
 import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.dtos.items.Name;
 import org.ecos.groceryList.dtos.items.Quantity;
+import org.ecos.groceryList.exceptions.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
-public class Items implements Iterable<Item> {
+public class Items {
     private final IdentitySecureCreator mSecureCreator;
     private List<Item> mItems;
 
@@ -57,8 +57,21 @@ public class Items implements Iterable<Item> {
         return mItems.get(position);
     }
 
-    @Override
-    public Iterator<Item> iterator() {
-        return mItems.iterator();
+    public Item lookFor(Item item) throws NotFoundException {
+        for (Item itemToUpdate : mItems) {
+            if(itemToUpdate.equals(item))
+                return item;
+        }
+        throw new NotFoundException();
+    }
+
+    public Item lookFor(Name itemName) throws NotFoundException {
+        for (Item item : mItems) {
+            Name name = item.getName();
+            if(name.equals(itemName))
+                return item;
+        }
+
+        throw new NotFoundException();
     }
 }

@@ -52,11 +52,11 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
         mCollection.addAll(Arrays.asList(
                 Name.from("Lechuga"),
                 Name.from("Tomate"),
-                Name.from("Arroz"),
+                Name.from("Arroz")/*,
                 Name.from("Leche"),
                 Name.from("Salchichas"),
                 Name.from("Lavavajillas"),
-                Name.from("Papel higiénico")/*,
+                Name.from("Papel higiénico"),
             "Yogur de beber","Pavo","Queso","Comida gatos","Sopa 'Soba'","Detergente","Suaviante",
             "Café","Galletas","Agua","Bebida de cola","Puré de patatas","Manzana"*/
             ));
@@ -65,7 +65,16 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
     //TODO: ABSTRACTION (register inside Messaging Service)
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEvent(NewItemSendEvent event) {
-        addNewItemWith(event.getItemText());
+        Name itemName = Name.from(event.getItemText());
+
+        try {
+            Item itemToUpdate = mCollection.lookFor(itemName);
+            applyChanges(itemName,itemToUpdate);
+        } catch (NotFoundException e) {
+            addNewItemWith(event.getItemText());
+        }
+
+
     }
 
     @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
@@ -73,7 +82,7 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
         Item itemWithNewValues = event.getItem();
 
         try {
-            Item itemToUpdate= lookFor(itemWithNewValues);
+            Item itemToUpdate= mCollection.lookFor(itemWithNewValues);
             applyChanges(itemWithNewValues, itemToUpdate);
         } catch (NotFoundException e) {
             e.printStackTrace();
@@ -86,17 +95,15 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
         mOnChangeListener.onPropertyChange(updateItem, itemToUpdate.getName());
     }
 
+    private void applyChanges(Name itemName, Item itemToUpdate) {
+        itemToUpdate.setName(itemName);
+
+        mOnChangeListener.onPropertyChange(updateItem, itemToUpdate.getName());
+    }
+
     private void updateItemWith(Item itemWithNewValues, Item itemToUpdate) {
         itemToUpdate.setName(itemWithNewValues.getName());
         itemToUpdate.setQuantity(itemWithNewValues.getQuantity());
-    }
-
-    private Item lookFor(Item item) throws NotFoundException {
-        for (Item itemToUpdate : mCollection) {
-            if(itemToUpdate.equals(item))
-                return item;
-        }
-        throw new NotFoundException();
     }
 
     private void addNewItemWith(CharSequence itemText) {
