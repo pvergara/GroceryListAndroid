@@ -77,7 +77,7 @@ public class ItemViewModelImpl implements ItemViewModel {
 
     private void enableDisableButtonDependsOn(CharSequence itemText) {
         boolean enableActionButton = true;
-        if (itemText.length()==0)
+        if (itemText.toString().replaceAll(" ","").length()==0)
             enableActionButton = false;
         mOnChangeListener.onPropertyChange(changeActionStatus,enableActionButton);
     }
