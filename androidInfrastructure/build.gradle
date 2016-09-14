@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 def androidVersion = 24
-def androidSupport = "$androidVersion.2.0"
+def androidSupport = "$androidVersion.2.1"
 def jUnit = "4.12"
 
 android {

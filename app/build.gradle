@@ -3,7 +3,7 @@ apply plugin: 'android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
 def androidVersion = 24
-def androidSupport = "$androidVersion.2.0"
+def androidSupport = "$androidVersion.2.1"
 def buildToolsV = "$androidVersion.0.1"
 def dagger = "2.6"
 def butterKnife = "8.2.1"
