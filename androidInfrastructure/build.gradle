@@ -1,12 +1,13 @@
 apply plugin: 'com.android.library'
 
-def androidVersion = 24
-def androidSupport = "$androidVersion.2.1"
+def androidVersion = 25
+def androidSupport = "$androidVersion.3.1"
+def buildToolsV = "$androidVersion.0.0"
 def jUnit = "4.12"
 
 android {
     compileSdkVersion androidVersion
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "$buildToolsV"
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion androidVersion
