@@ -1,8 +1,10 @@
-package org.ecos.groceryList.wireUp;
+package org.ecos.groceryList.wireUp.components;
 
 import org.ecos.groceryList.views.ItemView;
 import org.ecos.groceryList.views.ListCreationView;
 import org.ecos.groceryList.views.MainActivity;
+import org.ecos.groceryList.wireUp.modules.AndroidInfrastructureModule;
+import org.ecos.groceryList.wireUp.modules.ViewModelsModule;
 
 import dagger.Component;
 

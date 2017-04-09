@@ -13,11 +13,9 @@ import org.ecos.groceryList.application.GroceryListApplication;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-@SuppressWarnings("FieldCanBeLocal")
 public class MainActivity extends AppCompatActivity implements org.ecos.android.infrastructure.mvvm.view.View {
 
     private FragmentManager mFragmentManager;
-    private GroceryListApplication mApplication;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -35,9 +33,9 @@ public class MainActivity extends AppCompatActivity implements org.ecos.android.
 
     private void loadDependencies() {
         mFragmentManager = getSupportFragmentManager();
-        mApplication = (GroceryListApplication) getApplication();
+        GroceryListApplication application = (GroceryListApplication) getApplication();
 
-        mApplication.getGeneralComponent().inject(this);
+        application.getGeneralComponent().inject(this);
 
         ButterKnife.bind(this);
     }

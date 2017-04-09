@@ -1,4 +1,4 @@
-package org.ecos.groceryList.wireUp;
+package org.ecos.groceryList.wireUp.modules;
 
 import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.messaging.MessagingServiceImpl;
@@ -12,7 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-class AndroidInfrastructureModule {
+public class AndroidInfrastructureModule {
 
     @Provides
     UserCommunicationService providesUserCommunicationService(){

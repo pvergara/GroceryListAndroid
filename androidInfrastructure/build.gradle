@@ -34,4 +34,6 @@ dependencies {
     compile "com.android.support:design:$androidSupport"
 
     testCompile "junit:junit:$jUnit"
+
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

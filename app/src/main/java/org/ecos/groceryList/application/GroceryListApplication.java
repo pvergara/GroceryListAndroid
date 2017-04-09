@@ -2,9 +2,9 @@ package org.ecos.groceryList.application;
 
 import android.app.Application;
 
-import org.ecos.groceryList.wireUp.DaggerGeneralComponent;
-import org.ecos.groceryList.wireUp.GeneralComponent;
-import org.ecos.groceryList.wireUp.ViewModelsModule;
+import org.ecos.groceryList.wireUp.components.DaggerGeneralComponent;
+import org.ecos.groceryList.wireUp.components.GeneralComponent;
+import org.ecos.groceryList.wireUp.modules.ViewModelsModule;
 
 public class GroceryListApplication extends Application {
 
@@ -14,11 +14,12 @@ public class GroceryListApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        //@formatter:off
         mGeneralComponent = DaggerGeneralComponent.
             builder().
-//            androidInfrastructureModule(new AndroidInfrastructureModule()).
-            viewModelsModule(new ViewModelsModule()).
+                viewModelsModule(new ViewModelsModule()).
             build();
+        //@formatter:on
 
     }
 

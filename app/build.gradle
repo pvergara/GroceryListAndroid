@@ -21,6 +21,9 @@ android {
         targetSdkVersion androidVersion
         versionCode 1
         versionName "1.0"
+        jackOptions {
+            enabled false
+        }
     }
     buildTypes {
         release {
