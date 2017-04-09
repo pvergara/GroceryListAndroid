@@ -9,11 +9,12 @@ import org.ecos.groceryList.dtos.items.Name;
 import org.ecos.groceryList.dtos.items.Quantity;
 import org.ecos.groceryList.exceptions.NotFoundException;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Items {
+public class Items  extends AbstractList<Item> {
     private final IdentitySecureCreator mSecureCreator;
     private List<Item> mItems;
 
@@ -73,5 +74,15 @@ public class Items {
         }
 
         throw new NotFoundException();
+    }
+
+    @Override
+    public Item remove(int index) {
+        return mItems.remove(index);
+    }
+
+    @Override
+    public Item set(int index, Item element) {
+        return mItems.set(index, element);
     }
 }

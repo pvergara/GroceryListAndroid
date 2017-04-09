@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.mvvm.binding.BindingAction;
 import org.ecos.android.infrastructure.mvvm.binding.BindingManager;
 import org.ecos.android.infrastructure.mvvm.view.FragmentViewBase;
+import org.ecos.android.infrastructure.ui.SimpleItemTouchHelperCallback;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.application.GroceryListApplication;
 import org.ecos.groceryList.viewModels.ListCreationViewModel;
@@ -98,6 +100,10 @@ public class ListCreationView extends FragmentViewBase {
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
+        ItemTouchHelper.Callback callback =
+            new SimpleItemTouchHelperCallback(mAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
 
     }
 

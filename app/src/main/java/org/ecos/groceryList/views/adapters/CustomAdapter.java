@@ -7,17 +7,40 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.ecos.android.infrastructure.messaging.MessagingService;
+import org.ecos.android.infrastructure.ui.ItemTouchHelperAdapter;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.dtos.Items;
 import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.events.ItemSendToUpdateEvent;
 
+import java.util.Collections;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder>  {
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> implements ItemTouchHelperAdapter {
 
     private MessagingService mMessagingService;
+
+    @Override
+    public void onItemDismiss(int position) {
+        mCollection.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mCollection, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mCollection, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final MessagingService mMessagingService;
