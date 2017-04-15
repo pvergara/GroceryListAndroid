@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.ui.ItemTouchHelperAdapter;
 import org.ecos.groceryList.R;
-import org.ecos.groceryList.dtos.Items;
+import org.ecos.groceryList.dtos.items.Items;
 import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.views.ItemViewHolder;
 

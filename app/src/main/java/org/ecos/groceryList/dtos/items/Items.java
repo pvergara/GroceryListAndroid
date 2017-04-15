@@ -1,4 +1,4 @@
-package org.ecos.groceryList.dtos;
+package org.ecos.groceryList.dtos.items;
 
 import org.ecos.groceryList.dtos.items.Identity;
 import org.ecos.groceryList.dtos.items.IdentityFactory;
