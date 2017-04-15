@@ -10,16 +10,16 @@ public class IdentitySecureCreator {
     }
 
     public Identity createANonRepeatedIdentity(List<Identity> existentIdentities){
-        Identity cadidate = mFactory.create();
+        Identity candidate = mFactory.create();
 
         int maxLoops = 30;
         int counter = 0;
-        while(existentIdentities.contains(cadidate)){
+        while(existentIdentities.contains(candidate)){
             if(counter>=maxLoops)
                 throw new IllegalArgumentException("Can not create different identity.");
-            cadidate = mFactory.create();
+            candidate = mFactory.create();
             counter++;
         }
-        return cadidate;
+        return candidate;
     }
 }
