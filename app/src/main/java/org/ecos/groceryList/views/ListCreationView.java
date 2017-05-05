@@ -107,7 +107,9 @@ public class ListCreationView extends FragmentViewBase {
 
     }
 
-    private BindingAction<CharSequence> mBindingActionOnGroceryListAddItem = sentValue ->{ mGroceryListView.scrollToPosition(mAdapter.getItemCount() - 1); mAdapter.notifyDataSetChanged();};
+    private BindingAction<CharSequence> mBindingActionOnGroceryListAddItem = sentValue ->{
+        mGroceryListView.scrollToPosition(mAdapter.getItemCount() - 1);
+        mAdapter.notifyDataSetChanged();};
 
     private BindingAction<Object> mBindingActionOnGroceryListUpdateItem = sentValue -> mAdapter.notifyDataSetChanged();
 
