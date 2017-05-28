@@ -17,6 +17,7 @@ import java.util.Collections;
 public class CustomAdapter extends RecyclerView.Adapter<ItemViewHolder> implements ItemTouchHelperAdapter {
 
     private MessagingService mMessagingService;
+    private Items mCollection;
 
     @Override
     public void onItemDismiss(int position) {
@@ -37,8 +38,6 @@ public class CustomAdapter extends RecyclerView.Adapter<ItemViewHolder> implemen
         }
         notifyItemMoved(fromPosition, toPosition);
     }
-
-    private Items mCollection;
     public void setCollection(Items collection) {
         mCollection = collection;
     }
@@ -63,7 +62,6 @@ public class CustomAdapter extends RecyclerView.Adapter<ItemViewHolder> implemen
 
         holder.bind(item);
 
-        holder.getTextView().setText(item.getName().toString());
     }
 
     @Override
