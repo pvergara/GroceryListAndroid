@@ -10,6 +10,7 @@ import android.widget.TextView;
 import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.dtos.items.Item;
+import org.ecos.groceryList.dtos.items.Name;
 import org.ecos.groceryList.events.ItemSendToUpdateEvent;
 
 import butterknife.BindView;
@@ -29,14 +30,21 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
 
 
     private Item mItem;
+    private Name mName;
 
-    public void bind(Item item) {
+    public void bind(Item item, Name name) {
         mItem = item;
+        mName = name;
+
 
         updateViews();
     }
 
     private void updateViews() {
+        if(mName!=null && mName.equals(mItem.getName())) {
+            showsSelectionAnimation(mItemContainer);
+            mName=null;
+        }
         mItemText.setText(mItem.getName().toString());
     }
 
@@ -53,7 +61,6 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
 
     @OnClick(R.id.item_container)
     public void onClick() {
-        showsSelectionAnimation(mItemContainer);
         sendBackToUpdate();
     }
 

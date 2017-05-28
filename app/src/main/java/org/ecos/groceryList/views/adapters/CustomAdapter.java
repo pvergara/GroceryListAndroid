@@ -10,6 +10,7 @@ import org.ecos.android.infrastructure.ui.ItemTouchHelperAdapter;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.dtos.items.Items;
 import org.ecos.groceryList.dtos.items.Item;
+import org.ecos.groceryList.dtos.items.Name;
 import org.ecos.groceryList.views.ItemViewHolder;
 
 import java.util.Collections;
@@ -18,6 +19,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ItemViewHolder> implemen
 
     private MessagingService mMessagingService;
     private Items mCollection;
+    private Name mName;
 
     @Override
     public void onItemDismiss(int position) {
@@ -38,6 +40,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ItemViewHolder> implemen
         }
         notifyItemMoved(fromPosition, toPosition);
     }
+
     public void setCollection(Items collection) {
         mCollection = collection;
     }
@@ -50,22 +53,27 @@ public class CustomAdapter extends RecyclerView.Adapter<ItemViewHolder> implemen
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup rootViewGroup, int viewType) {
         View view = LayoutInflater.
-            from(rootViewGroup.getContext()).
-            inflate(R.layout.fragment_list_creation_item, rootViewGroup, false);
+        from(rootViewGroup.getContext()).
+        inflate(R.layout.fragment_list_creation_item, rootViewGroup, false);
 
-        return new ItemViewHolder(view,mMessagingService);
+        return new ItemViewHolder(view, mMessagingService);
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         Item item = mCollection.get(position);
 
-        holder.bind(item);
-
+        holder.bind(item, mName);
+        if (position == mCollection.size() - 1)
+            mName = null;
     }
 
     @Override
     public int getItemCount() {
         return mCollection.size();
+    }
+
+    public void prepareToShowUpdate(Name sentValue) {
+        mName = sentValue;
     }
 }

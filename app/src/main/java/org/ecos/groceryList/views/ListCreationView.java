@@ -16,6 +16,7 @@ import org.ecos.android.infrastructure.mvvm.view.FragmentViewBase;
 import org.ecos.android.infrastructure.ui.SimpleItemTouchHelperCallback;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.application.GroceryListApplication;
+import org.ecos.groceryList.dtos.items.Name;
 import org.ecos.groceryList.viewModels.ListCreationViewModel;
 import org.ecos.groceryList.views.adapters.CustomAdapter;
 
@@ -111,6 +112,12 @@ public class ListCreationView extends FragmentViewBase {
         mGroceryListView.scrollToPosition(mAdapter.getItemCount() - 1);
         mAdapter.notifyDataSetChanged();};
 
-    private BindingAction<Object> mBindingActionOnGroceryListUpdateItem = sentValue -> mAdapter.notifyDataSetChanged();
+    private BindingAction<Object> mBindingActionOnGroceryListUpdateItem = sentValue ->{
+        if(!(sentValue instanceof Name))
+            return;
+
+        mAdapter.prepareToShowUpdate((Name)sentValue);
+        mAdapter.notifyDataSetChanged();
+    };
 
 }
