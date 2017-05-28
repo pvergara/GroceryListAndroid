@@ -2,6 +2,7 @@ package org.ecos.groceryList.views;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,23 @@ public class ItemView extends FragmentViewBase {
 
         initTheViewModel();
 
+        initTheViews();
+
         return rootView;
+    }
+
+    private void initTheViews() {
+        mItemText.setFocusableInTouchMode(true);
+        mItemText.requestFocus();
+        mItemText.setOnKeyListener((v, keyCode, event) -> {
+            // If the event is a key-down event on the "enter" button
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                // Perform action on key press
+                mViewModel.sendItemText();
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override
