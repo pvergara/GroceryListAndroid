@@ -1,12 +1,5 @@
 package org.ecos.groceryList.dtos.items;
 
-import org.ecos.groceryList.dtos.items.Identity;
-import org.ecos.groceryList.dtos.items.IdentityFactory;
-import org.ecos.groceryList.dtos.items.IdentityFactoryImpl;
-import org.ecos.groceryList.dtos.items.IdentitySecureCreator;
-import org.ecos.groceryList.dtos.items.Item;
-import org.ecos.groceryList.dtos.items.Name;
-import org.ecos.groceryList.dtos.items.Quantity;
 import org.ecos.groceryList.exceptions.NotFoundException;
 
 import java.util.AbstractList;
@@ -45,7 +38,7 @@ public class Items  extends AbstractList<Item> {
 
         Item item = new Item(newIdentity);
         item.setName(itemName);
-        item.setQuantity(Quantity.from(1));
+        item.setQuantity(Quantity.fromDefault());
 
         mItems.add(item);
     }

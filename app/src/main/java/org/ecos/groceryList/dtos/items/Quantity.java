@@ -1,5 +1,9 @@
 package org.ecos.groceryList.dtos.items;
 
+import org.ecos.groceryList.exceptions.EmptyQuantityException;
+import org.ecos.groceryList.exceptions.NegativeQuantityException;
+import org.ecos.groceryList.exceptions.TooBigQuantityException;
+
 public class Quantity {
     private float mQuantityAsDecimal;
 
@@ -7,9 +11,23 @@ public class Quantity {
         mQuantityAsDecimal = quantityAsDecimal;
     }
 
-    public static Quantity from(int quantityAsInt){
+    @SuppressWarnings("WeakerAccess")
+    public static Quantity fromDefault() {
+        try {
+            return Quantity.from(1);
+        } catch (NegativeQuantityException | EmptyQuantityException | TooBigQuantityException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Default must do not generate exception.");
+        }
+    }
+
+    public static Quantity from(int quantityAsInt) throws NegativeQuantityException, EmptyQuantityException, TooBigQuantityException {
         if(quantityAsInt<0)
-            throw new IllegalArgumentException("The quantity can't be a negative value.");
+            throw new NegativeQuantityException("The quantity can't be a negative value.");
+        if(quantityAsInt==0)
+            throw new EmptyQuantityException("There's no reason to create an empty quantity.");
+        if(quantityAsInt>99)
+            throw new TooBigQuantityException("The quantity can't be upper than ninety-nine.");
         return new Quantity((float) quantityAsInt);
     }
 
@@ -21,7 +39,6 @@ public class Quantity {
         Quantity quantity = (Quantity) o;
 
         return Float.compare(quantity.mQuantityAsDecimal, mQuantityAsDecimal) == 0;
-
     }
 
     @Override

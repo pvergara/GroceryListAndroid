@@ -16,7 +16,7 @@ public class Item {
         mName = name;
     }
 
-    public Item(Identity identity) {
+    Item(Identity identity) {
         mIdentity = identity;
 
         mName = createDefaultName();
@@ -25,7 +25,7 @@ public class Item {
 
     @NonNull
     private Quantity createDefaultQuantity() {
-        return Quantity.from(1);
+        return Quantity.fromDefault();
     }
 
     @NonNull
@@ -57,6 +57,7 @@ public class Item {
             '}';
     }
 
+    @SuppressWarnings("WeakerAccess")
     public Identity getIdentity() {
         return mIdentity;
     }
