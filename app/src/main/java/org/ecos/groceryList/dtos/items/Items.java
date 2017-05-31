@@ -32,6 +32,10 @@ public class Items  extends AbstractList<Item> {
         return identities;
     }
 
+    public List<Identity> asList(){
+        return getIdentitiesOf(mItems);
+    }
+
 
     public void add(Name itemName) {
         Identity newIdentity = mSecureCreator.createANonRepeatedIdentity(getIdentitiesOf(mItems));
@@ -41,6 +45,12 @@ public class Items  extends AbstractList<Item> {
         item.setQuantity(Quantity.fromDefault());
 
         mItems.add(item);
+    }
+
+    @Override
+    public boolean add(Item item) {
+        mItems.add(item);
+        return true;
     }
 
     public int size() {

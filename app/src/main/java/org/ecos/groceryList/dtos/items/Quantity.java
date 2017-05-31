@@ -3,8 +3,9 @@ package org.ecos.groceryList.dtos.items;
 import org.ecos.groceryList.exceptions.EmptyQuantityException;
 import org.ecos.groceryList.exceptions.NegativeQuantityException;
 import org.ecos.groceryList.exceptions.TooBigQuantityException;
+import org.ecos.groceryList.interfaces.AsString;
 
-public class Quantity {
+public class Quantity implements AsString {
     private float mQuantityAsDecimal;
 
     private Quantity(float quantityAsDecimal) {
@@ -50,5 +51,10 @@ public class Quantity {
     public String toString() {
         return "Quantity{" + "mQuantityAsDecimal=" + mQuantityAsDecimal +
             '}';
+    }
+
+    @Override
+    public String asString() {
+        return String.valueOf(Float.valueOf(mQuantityAsDecimal).intValue());
     }
 }

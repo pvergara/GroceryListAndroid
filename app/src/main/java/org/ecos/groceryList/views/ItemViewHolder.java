@@ -11,6 +11,7 @@ import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.dtos.items.Name;
+import org.ecos.groceryList.dtos.items.Quantity;
 import org.ecos.groceryList.events.ItemSendToUpdateEvent;
 
 import butterknife.BindView;
@@ -23,7 +24,10 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     private MessagingService mMessagingService;
 
     @BindView(R.id.item_as_text)
-    TextView mItemText;
+    TextView mNameText;
+
+    @BindView(R.id.quantity_as_text)
+    TextView mQuantityText;
 
     @BindView(R.id.item_container)
     View mItemContainer;
@@ -45,7 +49,13 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
             showsSelectionAnimation(mItemContainer);
             mName=null;
         }
-        mItemText.setText(mItem.getName().toString());
+        mNameText.setText(mItem.getName().toString());
+        if(mItem.getQuantity().equals(Quantity.fromDefault()))
+            mQuantityText.setVisibility(View.GONE);
+        else {
+            mQuantityText.setVisibility(View.VISIBLE);
+            mQuantityText.setText(mItem.getQuantity().asString());
+        }
     }
 
 

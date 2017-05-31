@@ -16,7 +16,7 @@ public class Item {
         mName = name;
     }
 
-    Item(Identity identity) {
+    public Item(Identity identity) {
         mIdentity = identity;
 
         mName = createDefaultName();
