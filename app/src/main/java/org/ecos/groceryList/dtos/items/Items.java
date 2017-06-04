@@ -4,47 +4,28 @@ import org.ecos.groceryList.exceptions.NotFoundException;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Items  extends AbstractList<Item> {
-    private final IdentitySecureCreator mSecureCreator;
     private List<Item> mItems;
 
     public Items() {
         mItems = new ArrayList<>();
-
-        IdentityFactory factory = new IdentityFactoryImpl();
-        mSecureCreator = new IdentitySecureCreator(factory);
     }
 
     public void addAll(List<Name> names) {
+        //noinspection Convert2streamapi
         for (Name itemName :names) {
             add(itemName);
         }
     }
 
-    private List<Identity> getIdentitiesOf(Collection<Item> items) {
-        List<Identity> identities = new ArrayList<>();
-        for (Item item: items) {
-            identities.add(item.getIdentity());
-        }
-        return identities;
-    }
-
-    public List<Identity> asList(){
-        return getIdentitiesOf(mItems);
-    }
-
-
     public void add(Name itemName) {
-        Identity newIdentity = mSecureCreator.createANonRepeatedIdentity(getIdentitiesOf(mItems));
+        Item newItem = ItemFactory.
+        using(mItems).
+            createFrom(itemName);
 
-        Item item = new Item(newIdentity);
-        item.setName(itemName);
-        item.setQuantity(Quantity.fromDefault());
-
-        mItems.add(item);
+        mItems.add(newItem);
     }
 
     @Override

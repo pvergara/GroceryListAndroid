@@ -94,7 +94,7 @@ public class ListCreationView extends FragmentViewBase {
         mViewModel.setOnchangeListener(mBindingManager.getOnChangeListener());
         mViewModel.init();
 
-        mAdapter.setCollection(mViewModel.getCollection());
+        mAdapter.setCollection(mViewModel.getItems());
     }
 
     private void initThe(RecyclerView recyclerView) {

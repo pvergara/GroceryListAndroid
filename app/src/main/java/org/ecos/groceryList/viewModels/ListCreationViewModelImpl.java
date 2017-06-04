@@ -2,10 +2,7 @@ package org.ecos.groceryList.viewModels;
 
 import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.mvvm.binding.OnChangeListener;
-import org.ecos.groceryList.dtos.items.Identity;
-import org.ecos.groceryList.dtos.items.IdentityFactory;
-import org.ecos.groceryList.dtos.items.IdentityFactoryImpl;
-import org.ecos.groceryList.dtos.items.IdentitySecureCreator;
+import org.ecos.groceryList.dtos.items.ItemFactory;
 import org.ecos.groceryList.dtos.items.Items;
 import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.dtos.items.Name;
@@ -13,6 +10,7 @@ import org.ecos.groceryList.dtos.items.Quantity;
 import org.ecos.groceryList.events.NewItemSendEvent;
 import org.ecos.groceryList.events.UpdateItemSendEvent;
 import org.ecos.groceryList.exceptions.EmptyQuantityException;
+import org.ecos.groceryList.exceptions.FactoryException;
 import org.ecos.groceryList.exceptions.NegativeQuantityException;
 import org.ecos.groceryList.exceptions.NotFoundException;
 import org.ecos.groceryList.exceptions.TooBigQuantityException;
@@ -26,11 +24,11 @@ import static org.ecos.groceryList.viewModels.ListCreationViewModel.Properties.u
 
 public class ListCreationViewModelImpl implements ListCreationViewModel {
     private final MessagingService mMessagingService;
-    private Items mCollection;
+    private Items mItems;
     private OnChangeListener mOnChangeListener;
 
-    public Items getCollection() {
-        return mCollection;
+    public Items getItems() {
+        return mItems;
     }
 
 
@@ -52,32 +50,31 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
     }
 
     private void initTheList() {
-        mCollection = new Items();
+        mItems = new Items();
         initData();
     }
 
     private void initData() {
-        mCollection.addAll(Arrays.asList(
-                Name.from("Lechuga"),
-                Name.from("Tomate")/*,
+        mItems.addAll(Arrays.asList(
+        Name.from("Lechuga"),
+        Name.from("Tomate")/*,
                 Name.from("Leche"),
                 Name.from("Salchichas"),
                 Name.from("Lavavajillas"),
                 Name.from("Papel higiénico"),
             "Yogur de beber","Pavo","Queso","Comida gatos","Sopa 'Soba'","Detergente","Suaviante",
             "Café","Galletas","Agua","Bebida de cola","Puré de patatas","Manzana"*/
-            ));
-        IdentityFactory factory = new IdentityFactoryImpl();
-        IdentitySecureCreator secureCreator = new IdentitySecureCreator(factory);
-
-        Identity newIdentity = secureCreator.createANonRepeatedIdentity(mCollection.asList());
-
-        Item item = new Item(newIdentity);
-        item.setName(Name.from("Arroz"));
+        ));
         try {
-            item.setQuantity(Quantity.from(2));
-            mCollection.add(item);
-        } catch (NegativeQuantityException | EmptyQuantityException | TooBigQuantityException e) {
+            //@formatter:off
+            Item item = ItemFactory.
+                using(mItems).
+                    and(Name.from("Arroz")).
+                    and(Quantity.from(2)).
+                create();
+            //@formatter:on
+            mItems.add(item);
+        } catch (NegativeQuantityException | EmptyQuantityException | TooBigQuantityException | FactoryException e) {
             e.printStackTrace();
         }
     }
@@ -88,8 +85,8 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
         Name itemName = Name.from(event.getItemText());
 
         try {
-            Item itemToUpdate = mCollection.lookFor(itemName);
-            applyChanges(itemName,itemToUpdate);
+            Item itemToUpdate = mItems.lookFor(itemName);
+            applyChanges(itemName, itemToUpdate);
         } catch (NotFoundException e) {
             addNewItemWith(event.getItemText());
         }
@@ -97,12 +94,12 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
 
     }
 
-    @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
-    public void onEvent(UpdateItemSendEvent event){
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onEvent(UpdateItemSendEvent event) {
         Item itemWithNewValues = event.getItem();
 
         try {
-            Item itemToUpdate= mCollection.lookFor(itemWithNewValues);
+            Item itemToUpdate = mItems.lookFor(itemWithNewValues);
             applyChanges(itemWithNewValues, itemToUpdate);
         } catch (NotFoundException e) {
             e.printStackTrace();
@@ -127,15 +124,15 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
     }
 
     private void addNewItemWith(CharSequence itemText) {
-        if(itemText!=null) {
-            mCollection.add(Name.from(itemText));
+        if (itemText != null) {
+            mItems.add(Name.from(itemText));
             mOnChangeListener.onPropertyChange(addItem, itemText);
         }
     }
 
 
     @Override
-    public void deInit(){
+    public void deInit() {
         mMessagingService.unRegisterMe(this);
     }
 

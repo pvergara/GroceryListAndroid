@@ -15,7 +15,7 @@ public interface ListCreationViewModel extends ViewModel {
 
     void init();
 
-    Items getCollection();
+    Items getItems();
 
     void deInit();
 }
