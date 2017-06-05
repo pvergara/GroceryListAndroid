@@ -7,7 +7,6 @@ def androidSupport = "$androidVersion.3.1"
 def buildToolsV = "$androidVersion.0.0"
 def dagger = "2.6"
 def butterKnife = "8.2.1"
-def jUnit = "4.12"
 
 def RxAndroid = "1.2.1"
 def RxJava = "1.1.9"
@@ -40,12 +39,12 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
+    compile project(':androidInfrastructure')
+
     compile "com.android.support:appcompat-v7:$androidSupport"
     compile "com.android.support:design:$androidSupport"
     compile "com.android.support:recyclerview-v7:$androidSupport"
     compile "com.android.support:support-v4:$androidSupport"
-
-    compile project(':androidInfrastructure')
 
     compile "com.jakewharton:butterknife:$butterKnife"
     apt "com.jakewharton:butterknife-compiler:$butterKnife"
