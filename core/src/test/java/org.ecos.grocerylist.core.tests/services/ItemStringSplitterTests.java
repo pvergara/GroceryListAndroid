@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 public class ItemStringSplitterTests {
     @Test
     public void aSingleTextMustBeInterpretedAsItemsName() throws SplitterException {
-        Map<ItemPart,String> result = ItemStringSplitter.split("lettuce");
+        Map<ItemPart,String> result = ItemStringSplitter.INSTANCE.split("lettuce");
 
         assertThat(result.keySet(),hasSize(1));
         assertThat(result.containsKey(ItemPart.name),is(true));
@@ -23,45 +23,29 @@ public class ItemStringSplitterTests {
     }
 
     @Test
-    public void aTextWithWithTwoExpressionsOneAWordAndTheOtherAPlusAndADigitMustBeInterpretedAsNameAndQuantityOfAnItem() throws SplitterException {
-        Map<ItemPart,String> result = ItemStringSplitter.split("lettuce +2");
+    public void aTextWithTwoExpressionsOneAWordAndTheOtherAnXCharAndADigitMustBeInterpretedAsNameAndQuantityOfAnItem() throws SplitterException {
+        Map<ItemPart,String> result = ItemStringSplitter.INSTANCE.split("lettuce x2");
 
-        assertThat(result.keySet(),hasSize(3));
+        assertThat(result.keySet(),hasSize(2));
         assertThat(result.containsKey(ItemPart.name),is(true));
         assertThat(result.get(ItemPart.name),is(equalTo("lettuce")));
-        assertThat(result.containsKey(ItemPart.incrementType),is(true));
-        assertThat(result.get(ItemPart.incrementType),is(equalTo("+")));
         assertThat(result.containsKey(ItemPart.quantity),is(true));
         assertThat(result.get(ItemPart.quantity),is(equalTo("2")));
     }
 
     @Test(expected = SplitterException.class)
     public void youCanNotWriteOnlyQuantity() throws SplitterException {
-        ItemStringSplitter.split("+2");
+        ItemStringSplitter.INSTANCE.split("x2");
     }
 
     @Test(expected = SplitterException.class)
     public void youCanNotWriteQuantityMoreThanOnce() throws SplitterException {
-        ItemStringSplitter.split("Lettuce +2+1");
-    }
-
-    @Test
-    public void youCanAlsoWriteNegativeQuantity() throws SplitterException {
-        Map<ItemPart,String> result = ItemStringSplitter.split("lettuce -2");
-
-        assertThat(result.keySet(),hasSize(3));
-        assertThat(result.containsKey(ItemPart.name),is(true));
-        assertThat(result.get(ItemPart.name),is(equalTo("lettuce")));
-        assertThat(result.containsKey(ItemPart.incrementType),is(true));
-        assertThat(result.get(ItemPart.incrementType),is(equalTo("-")));
-        assertThat(result.containsKey(ItemPart.quantity),is(true));
-        assertThat(result.get(ItemPart.quantity),is(equalTo("2")));
-
+        ItemStringSplitter.INSTANCE.split("Lettuce x2x1");
     }
 
     @Test
     public void theItemsNameCanHasMoreThanOneWord() throws SplitterException {
-        Map<ItemPart,String> result = ItemStringSplitter.split("Powder milk");
+        Map<ItemPart,String> result = ItemStringSplitter.INSTANCE.split("Powder milk");
 
         assertThat(result.keySet(),hasSize(1));
         assertThat(result.containsKey(ItemPart.name),is(true));
@@ -70,13 +54,11 @@ public class ItemStringSplitterTests {
 
     @Test
     public void theItemsNameCanHasMoreThanOneWordAndThenTheQuantity() throws SplitterException {
-        Map<ItemPart,String> result = ItemStringSplitter.split("Powder milk +2");
+        Map<ItemPart,String> result = ItemStringSplitter.INSTANCE.split("Powder milk x2");
 
-        assertThat(result.keySet(),hasSize(3));
+        assertThat(result.keySet(),hasSize(2));
         assertThat(result.containsKey(ItemPart.name),is(true));
         assertThat(result.get(ItemPart.name),is(equalTo("Powder milk")));
-        assertThat(result.containsKey(ItemPart.incrementType),is(true));
-        assertThat(result.get(ItemPart.incrementType),is(equalTo("+")));
         assertThat(result.containsKey(ItemPart.quantity),is(true));
         assertThat(result.get(ItemPart.quantity),is(equalTo("2")));
     }
