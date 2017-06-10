@@ -3,7 +3,6 @@ package org.ecos.grocerylist.core.service
 import org.ecos.grocerylist.core.exceptions.SplitterException
 import org.ecos.grocerylist.core.items.ItemPart
 import java.util.*
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 object ItemStringSplitter {
@@ -12,7 +11,10 @@ object ItemStringSplitter {
     private val itemsNameMOREThanOneWordONLY = Pattern.compile("^([a-zA-Z]+\\s[a-zA-Z]+)$")!!
     private val itemsNameMOREThanOneWordANDQuantity = Pattern.compile("^([a-zA-Z]+[\\s[a-zA-Z]+]+)\\sx(\\d)$")!!
 
-    private var matcher: Matcher = itemsNameONEWordONLY.matcher("")
+    private var matcher = itemsNameONEWordONLY.matcher("")
+
+    private val groupIndexItemsQuantity = 2
+    private val groupIndexItemsName = 1
 
     @Throws(SplitterException::class)
     fun split(itemString: String): Map<ItemPart, String> {
@@ -50,16 +52,16 @@ object ItemStringSplitter {
     }
 
     private fun generateResultOnlyItemsName(result: HashMap<ItemPart, String>) {
-        result.put(ItemPart.name, matcher.group(1))
+        result.put(ItemPart.name, matcher.group(groupIndexItemsName))
     }
 
     private fun generateResultWithItemsNameAndQuantity(result: HashMap<ItemPart, String>) {
-        result.put(ItemPart.name, matcher.group(1))
-        result.put(ItemPart.quantity, matcher.group(2))
+        result.put(ItemPart.name, matcher.group(groupIndexItemsName))
+        result.put(ItemPart.quantity, matcher.group(groupIndexItemsQuantity))
     }
 
     private fun generateResultWithItemsNameManyWordsAndQuantity(result: HashMap<ItemPart, String>) {
-        result.put(ItemPart.name, matcher.group(1))
-        result.put(ItemPart.quantity, matcher.group(2))
+        result.put(ItemPart.name, matcher.group(groupIndexItemsName))
+        result.put(ItemPart.quantity, matcher.group(groupIndexItemsQuantity))
     }
 }
