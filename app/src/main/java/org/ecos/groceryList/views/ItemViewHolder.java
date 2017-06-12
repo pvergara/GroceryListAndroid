@@ -54,7 +54,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
             mQuantityText.setVisibility(View.GONE);
         else {
             mQuantityText.setVisibility(View.VISIBLE);
-            mQuantityText.setText(mItem.getQuantity().asString());
+            mQuantityText.setText(mItem.getQuantity().asStringFromInteger());
         }
     }
 

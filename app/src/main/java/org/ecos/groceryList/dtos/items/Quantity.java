@@ -32,6 +32,10 @@ public class Quantity implements AsString {
         return new Quantity((float) quantityAsInt);
     }
 
+    public static Quantity from(CharSequence quantityAsCharSequence)  throws NegativeQuantityException, EmptyQuantityException, TooBigQuantityException {
+        return from(Integer.valueOf(quantityAsCharSequence.toString()));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,7 +58,7 @@ public class Quantity implements AsString {
     }
 
     @Override
-    public String asString() {
+    public String asStringFromInteger() {
         return String.valueOf(Float.valueOf(mQuantityAsDecimal).intValue());
     }
 }
