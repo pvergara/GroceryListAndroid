@@ -12,7 +12,7 @@ import org.ecos.groceryList.R;
 import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.dtos.items.Name;
 import org.ecos.groceryList.dtos.items.Quantity;
-import org.ecos.groceryList.events.ItemSendToUpdateEvent;
+import org.ecos.groceryList.events.ItemSentToUpdateEvent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,6 +85,6 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void sendBackToUpdate() {
-        mMessagingService.send(new ItemSendToUpdateEvent(mItem));
+        mMessagingService.send(new ItemSentToUpdateEvent(mItem));
     }
 }

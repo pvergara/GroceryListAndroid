@@ -88,12 +88,13 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
             Item itemToUpdate = mItems.lookFor(itemName);
             applyChanges(itemName, itemToUpdate);
         } catch (NotFoundException e) {
-            addNewItemWith(event.getItemText());
+            addNewItemWith(event);
         }
 
 
     }
 
+    //TODO: ABSTRACTION (register inside Messaging Service)
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEvent(UpdateItemSendEvent event) {
         Item itemWithNewValues = event.getItem();
@@ -123,10 +124,22 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
         itemToUpdate.setQuantity(itemWithNewValues.getQuantity());
     }
 
-    private void addNewItemWith(CharSequence itemText) {
-        if (itemText != null) {
-            mItems.add(Name.from(itemText));
-            mOnChangeListener.onPropertyChange(addItem, itemText);
+    private void addNewItemWith(NewItemSendEvent newItemSendEvent) {
+        if (newItemSendEvent != null) {
+            //@formatter:off
+            try {
+                Item item = ItemFactory.
+                    using(mItems).
+                        and(Name.from(newItemSendEvent.getItemText().toString())).
+                        and(Quantity.from(Integer.valueOf(newItemSendEvent.getItemQuantity().toString()))).
+                    create();
+                mItems.add(item);
+                mOnChangeListener.onPropertyChange(addItem, newItemSendEvent);
+            //@formatter:on
+            } catch (FactoryException ignored) {
+            } catch (EmptyQuantityException | NegativeQuantityException | TooBigQuantityException e) {
+                e.printStackTrace();
+            }
         }
     }
 
