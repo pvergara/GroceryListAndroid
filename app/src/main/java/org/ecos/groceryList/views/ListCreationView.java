@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.ecos.android.infrastructure.messaging.MessagingService;
-import org.ecos.android.infrastructure.mvvm.binding.BindingAction;
 import org.ecos.android.infrastructure.mvvm.binding.BindingManager;
 import org.ecos.android.infrastructure.mvvm.view.FragmentViewBase;
 import org.ecos.android.infrastructure.ui.SimpleItemTouchHelperCallback;
@@ -88,8 +87,8 @@ public class ListCreationView extends FragmentViewBase {
     }
 
     private void initTheViewModel() {
-        mBindingManager.manageOnChangeFor(addItem,mBindingActionOnGroceryListAddItem,this);
-        mBindingManager.manageOnChangeFor(updateItem,mBindingActionOnGroceryListUpdateItem,this);
+        mBindingManager.manageOnChangeFor(addItem,this::onAddItem,this);
+        mBindingManager.manageOnChangeFor(updateItem,this::onUpdateItem,this);
 
         mViewModel.setOnchangeListener(mBindingManager.getOnChangeListener());
         mViewModel.init();
@@ -101,23 +100,24 @@ public class ListCreationView extends FragmentViewBase {
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
-        ItemTouchHelper.Callback callback =
-            new SimpleItemTouchHelperCallback(mAdapter);
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
 
     }
 
-    private BindingAction<CharSequence> mBindingActionOnGroceryListAddItem = sentValue ->{
+    private void onAddItem(Object newItemSendEventAsObject) {
         mGroceryListView.scrollToPosition(mAdapter.getItemCount() - 1);
-        mAdapter.notifyDataSetChanged();};
+        mAdapter.notifyDataSetChanged();
+    }
 
-    private BindingAction<Object> mBindingActionOnGroceryListUpdateItem = sentValue ->{
-        if(!(sentValue instanceof Name))
+
+    private void onUpdateItem(Object itemsNameAsObject) {
+        if(!(itemsNameAsObject instanceof Name))
             return;
 
-        mAdapter.prepareToShowUpdate((Name)sentValue);
+        mAdapter.prepareToShowUpdate((Name)itemsNameAsObject);
         mAdapter.notifyDataSetChanged();
-    };
+    }
 
 }
