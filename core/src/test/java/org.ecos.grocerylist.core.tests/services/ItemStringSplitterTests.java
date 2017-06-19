@@ -3,14 +3,14 @@ package org.ecos.grocerylist.core.tests.services;
 import org.ecos.grocerylist.core.exceptions.SplitterException;
 import org.ecos.grocerylist.core.items.ItemPart;
 import org.ecos.grocerylist.core.service.ItemStringSplitter;
-import org.junit.Test;
+import org.testng.annotations.*;
 
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
 
 public class ItemStringSplitterTests {
     @Test
@@ -33,12 +33,12 @@ public class ItemStringSplitterTests {
         assertThat(result.get(ItemPart.quantity).toString(),is(equalTo("2")));
     }
 
-    @Test(expected = SplitterException.class)
+    @Test(expectedExceptions = SplitterException.class)
     public void youCanNotWriteOnlyQuantity() throws SplitterException {
         new ItemStringSplitter().split("x2");
     }
 
-    @Test(expected = SplitterException.class)
+    @Test(expectedExceptions = SplitterException.class)
     public void youCanNotWriteQuantityMoreThanOnce() throws SplitterException {
         new ItemStringSplitter().split("Lettuce x2x1");
     }

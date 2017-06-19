@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import org.ecos.android.infrastructure.messaging.MessagingService;
+import org.ecos.core.infrastructure.messaging.BroadcastingService;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.dtos.items.Name;
@@ -21,7 +21,7 @@ import butterknife.OnClick;
 @SuppressWarnings("ALL")
 public class ItemViewHolder extends RecyclerView.ViewHolder {
     public static final String BACKGROUND_COLOR = "backgroundColor";
-    private MessagingService mMessagingService;
+    private BroadcastingService mBroadcastingService;
 
     @BindView(R.id.item_as_text)
     TextView mNameText;
@@ -59,13 +59,13 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public ItemViewHolder(View view, MessagingService messagingService) {
+    public ItemViewHolder(View view, BroadcastingService broadcastingService) {
         super(view);
-        initDependencies(view, messagingService);
+        initDependencies(view, broadcastingService);
     }
 
-    private void initDependencies(View view, MessagingService messagingService) {
-        mMessagingService = messagingService;
+    private void initDependencies(View view, BroadcastingService broadcastingService) {
+        mBroadcastingService = broadcastingService;
         ButterKnife.bind(this, view);
     }
 
@@ -85,6 +85,6 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void sendBackToUpdate() {
-        mMessagingService.send(new ItemSentToUpdateEvent(mItem));
+        mBroadcastingService.sendThis(new ItemSentToUpdateEvent(mItem));
     }
 }

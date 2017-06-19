@@ -9,10 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.mvvm.binding.BindingManager;
 import org.ecos.android.infrastructure.mvvm.view.FragmentViewBase;
 import org.ecos.android.infrastructure.ui.SimpleItemTouchHelperCallback;
+import org.ecos.core.infrastructure.messaging.BroadcastingService;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.application.GroceryListApplication;
 import org.ecos.groceryList.dtos.items.Name;
@@ -45,7 +45,7 @@ public class ListCreationView extends FragmentViewBase {
     @Inject
     BindingManager mBindingManager;
     @Inject
-    MessagingService mMessagingService;
+    BroadcastingService mBroadcastingService;
 
     private GroceryListApplication mApplication;
 
@@ -81,7 +81,7 @@ public class ListCreationView extends FragmentViewBase {
         mUnbinder = ButterKnife.bind(this, rootView);
 
         mLayoutManager = new LinearLayoutManager(mActivity);
-        mAdapter = new CustomAdapter(mMessagingService);
+        mAdapter = new CustomAdapter(mBroadcastingService);
 
 
     }

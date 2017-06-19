@@ -1,6 +1,6 @@
 package org.ecos.groceryList.wireUp.modules;
 
-import org.ecos.android.infrastructure.messaging.MessagingService;
+import org.ecos.core.infrastructure.messaging.BroadcastingService;
 import org.ecos.groceryList.viewModels.ItemViewModel;
 import org.ecos.groceryList.viewModels.ItemViewModelImpl;
 import org.ecos.groceryList.viewModels.ListCreationViewModel;
@@ -12,13 +12,13 @@ import dagger.Provides;
 @Module
 public class ViewModelsModule {
     @Provides
-    ListCreationViewModel providesListCreationViewModel(MessagingService messagingService){
-        return new ListCreationViewModelImpl(messagingService);
+    ListCreationViewModel providesListCreationViewModel(BroadcastingService broadcastingService){
+        return new ListCreationViewModelImpl(broadcastingService);
     }
 
     @Provides
-    ItemViewModel providesItemViewModel(MessagingService messagingService){
-        return new ItemViewModelImpl(messagingService);
+    ItemViewModel providesItemViewModel(BroadcastingService broadcastingService){
+        return new ItemViewModelImpl(broadcastingService);
     }
 
 }

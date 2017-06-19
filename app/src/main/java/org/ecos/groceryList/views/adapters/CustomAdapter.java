@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.ui.ItemTouchHelperAdapter;
+import org.ecos.core.infrastructure.messaging.BroadcastingService;
 import org.ecos.groceryList.R;
 import org.ecos.groceryList.dtos.items.Items;
 import org.ecos.groceryList.dtos.items.Item;
@@ -17,7 +17,7 @@ import java.util.Collections;
 
 public class CustomAdapter extends RecyclerView.Adapter<ItemViewHolder> implements ItemTouchHelperAdapter {
 
-    private MessagingService mMessagingService;
+    private BroadcastingService mBroadcastingService;
     private Items mCollection;
     private Name mName;
 
@@ -45,8 +45,8 @@ public class CustomAdapter extends RecyclerView.Adapter<ItemViewHolder> implemen
         mCollection = collection;
     }
 
-    public CustomAdapter(MessagingService messagingService) {
-        mMessagingService = messagingService;
+    public CustomAdapter(BroadcastingService broadcastingService) {
+        mBroadcastingService = broadcastingService;
     }
 
 
@@ -56,7 +56,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ItemViewHolder> implemen
         from(rootViewGroup.getContext()).
         inflate(R.layout.fragment_list_creation_item, rootViewGroup, false);
 
-        return new ItemViewHolder(view, mMessagingService);
+        return new ItemViewHolder(view, mBroadcastingService);
     }
 
     @Override

@@ -1,11 +1,11 @@
 package org.ecos.groceryList.wireUp.modules;
 
-import org.ecos.android.infrastructure.messaging.MessagingService;
-import org.ecos.android.infrastructure.messaging.MessagingServiceImpl;
 import org.ecos.android.infrastructure.mvvm.binding.BindingManager;
 import org.ecos.android.infrastructure.mvvm.binding.BindingManagerImpl;
 import org.ecos.android.infrastructure.ui.UserCommunicationService;
 import org.ecos.android.infrastructure.ui.UserCommunicationServiceImpl;
+import org.ecos.core.infrastructure.messaging.BroadcastingService;
+import org.ecos.core.infrastructure.messaging.BroadcastingServiceImpl;
 import org.greenrobot.eventbus.EventBus;
 
 import dagger.Module;
@@ -25,7 +25,7 @@ public class AndroidInfrastructureModule {
     }
 
     @Provides
-    MessagingService providesMessagingService(){
-        return new MessagingServiceImpl(EventBus.getDefault());
+    BroadcastingService providesMessagingService(){
+        return new BroadcastingServiceImpl();
     }
 }

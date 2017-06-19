@@ -1,10 +1,10 @@
 package org.ecos.groceryList.viewModels;
 
-import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.mvvm.binding.OnChangeListener;
+import org.ecos.core.infrastructure.messaging.BroadcastingService;
+import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.dtos.items.ItemFactory;
 import org.ecos.groceryList.dtos.items.Items;
-import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.dtos.items.Name;
 import org.ecos.groceryList.dtos.items.Quantity;
 import org.ecos.groceryList.events.NewItemSendEvent;
@@ -14,8 +14,6 @@ import org.ecos.groceryList.exceptions.FactoryException;
 import org.ecos.groceryList.exceptions.NegativeQuantityException;
 import org.ecos.groceryList.exceptions.NotFoundException;
 import org.ecos.groceryList.exceptions.TooBigQuantityException;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Arrays;
 
@@ -23,7 +21,7 @@ import static org.ecos.groceryList.viewModels.ListCreationViewModel.Properties.a
 import static org.ecos.groceryList.viewModels.ListCreationViewModel.Properties.updateItem;
 
 public class ListCreationViewModelImpl implements ListCreationViewModel {
-    private final MessagingService mMessagingService;
+    private final BroadcastingService mBroadcastingService;
     private Items mItems;
     private OnChangeListener mOnChangeListener;
 
@@ -37,10 +35,10 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
         mOnChangeListener = onChangeListener;
     }
 
-    public ListCreationViewModelImpl(MessagingService messagingService) {
-        mMessagingService = messagingService;
+    public ListCreationViewModelImpl(BroadcastingService broadcastingService) {
+        mBroadcastingService = broadcastingService;
 
-        mMessagingService.registerMe(this);
+//        mBroadcastingService.registerMe(this);
 
     }
 
@@ -79,8 +77,6 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
         }
     }
 
-    //TODO: ABSTRACTION (register inside Messaging Service)
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEvent(NewItemSendEvent event) {
         Name itemName = Name.from(event.getItemText());
 
@@ -94,8 +90,6 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
 
     }
 
-    //TODO: ABSTRACTION (register inside Messaging Service)
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEvent(UpdateItemSendEvent event) {
         Item itemWithNewValues = event.getItem();
 
@@ -146,7 +140,7 @@ public class ListCreationViewModelImpl implements ListCreationViewModel {
 
     @Override
     public void deInit() {
-        mMessagingService.unRegisterMe(this);
+//        mBroadcastingService.unRegisterMe(this);
     }
 
 }

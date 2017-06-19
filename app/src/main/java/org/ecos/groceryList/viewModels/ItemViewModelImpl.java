@@ -1,7 +1,7 @@
 package org.ecos.groceryList.viewModels;
 
-import org.ecos.android.infrastructure.messaging.MessagingService;
 import org.ecos.android.infrastructure.mvvm.binding.OnChangeListener;
+import org.ecos.core.infrastructure.messaging.BroadcastingService;
 import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.dtos.items.Name;
 import org.ecos.groceryList.dtos.items.Quantity;
@@ -14,8 +14,6 @@ import org.ecos.groceryList.exceptions.TooBigQuantityException;
 import org.ecos.grocerylist.core.exceptions.SplitterException;
 import org.ecos.grocerylist.core.items.ItemPart;
 import org.ecos.grocerylist.core.service.ItemStringSplitter;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Map;
 
@@ -28,18 +26,18 @@ import static org.ecos.groceryList.viewModels.ItemViewModel.Properties.changeIte
 public class ItemViewModelImpl implements ItemViewModel {
     private CharSequence mItemText;
     private OnChangeListener mOnChangeListener;
-    private MessagingService mMessagingService;
+    private BroadcastingService mBroadcastingService;
     private Item mItemToUpdate;
 
     @Inject
-    public ItemViewModelImpl(MessagingService messagingService) {
-        mMessagingService = messagingService;
-        messagingService.registerMe(this);
+    public ItemViewModelImpl(BroadcastingService broadcastingService) {
+        mBroadcastingService = broadcastingService;
+//        broadcastingService.registerMe(this);
     }
 
     @Override
     public void deInit(){
-        mMessagingService.unRegisterMe(this);
+//        mBroadcastingService.unRegisterMe(this);
     }
 
     @Override
@@ -55,13 +53,13 @@ public class ItemViewModelImpl implements ItemViewModel {
                 Map<ItemPart, CharSequence> result = new ItemStringSplitter().split(mItemText);
                 mItemToUpdate.setName(Name.from(result.get(ItemPart.name)));
                 mItemToUpdate.setQuantity(Quantity.from(result.get(ItemPart.quantity)));
-                mMessagingService.send(new UpdateItemSendEvent(mItemToUpdate));
+                mBroadcastingService.sendThis(new UpdateItemSendEvent(mItemToUpdate));
             } catch (SplitterException | EmptyQuantityException |NegativeQuantityException |TooBigQuantityException e) {
                 e.printStackTrace();
             }
         }
         else
-            mMessagingService.send(new NewItemSendEvent(mItemText));
+            mBroadcastingService.sendThis(new NewItemSendEvent(mItemText));
 
         cleanItemText();
         dismissItemToUpdate();
@@ -97,8 +95,6 @@ public class ItemViewModelImpl implements ItemViewModel {
         mOnChangeListener.onPropertyChange(changeActionStatus,enableActionButton);
     }
 
-    //TODO: ABSTRACTION (register inside Messaging Service)
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEvent(ItemSentToUpdateEvent event) {
         mItemToUpdate = event.getItem();
         if(mItemToUpdate.getQuantity().equals(Quantity.fromDefault()))
