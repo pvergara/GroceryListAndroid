@@ -1,10 +1,12 @@
 package org.ecos.core.infrastructure.messaging;
 
-interface BroadcastingReceiver {
-    <TReceiver> BroadcastingReceiver setMe(TReceiver me);
+public interface BroadcastingReceiver {
+    BroadcastingReceiver setMe();
     void asReceiverOf(Dial someBroadcaster);
 
-    <TMessage> void onReceivingOnly(TMessage thisMessage);
+    <TMessage> TMessage onReceivingOnly(TMessage thisMessage);
 
-    void onReceiving(Object thisMessage);
+    Iterable<Object> onReceivingAll();
+
+    <TMessage> void addNewMessage(TMessage message);
 }

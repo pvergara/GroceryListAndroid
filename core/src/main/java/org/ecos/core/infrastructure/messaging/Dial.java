@@ -28,4 +28,8 @@ public class Dial {
     public int hashCode() {
         return mDialAsUUID.hashCode();
     }
+
+    public String asString(){
+        return mDialAsUUID.toString();
+    }
 }
