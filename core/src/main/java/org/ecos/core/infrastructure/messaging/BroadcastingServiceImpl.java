@@ -11,7 +11,7 @@ public class BroadcastingServiceImpl implements BroadcastingService {
     private Object mMessage;
 
     private Dial mDialToSendANewMessage;
-    private Map<Dial, Collection<BroadcastingReceiver>> mMapOfReceiversByDial;
+    private static Map<Dial, Collection<BroadcastingReceiver>> mMapOfReceiversByDial;
 
     private List<Object> mMyBrandNewMessages;
     private BroadcastingReceiver mNewReceiverOfSomeUnknownDial;
@@ -99,9 +99,12 @@ public class BroadcastingServiceImpl implements BroadcastingService {
     public Iterable<Object> onReceivingAll() {
         Collection<Object> result = new ArrayList<>();
         for (Object someOfMyMessage:mMyBrandNewMessages) {
-            Object theMessage = onReceivingOnly(someOfMyMessage);
+            int index = mMyBrandNewMessages.indexOf(someOfMyMessage);
+            Object theMessage = mMyBrandNewMessages.get(index);
+
             result.add(theMessage);
         }
+        mMyBrandNewMessages.clear();
         return result;
     }
 
