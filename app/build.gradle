@@ -1,28 +1,22 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
-apply plugin: 'me.tatarka.retrolambda'
 
-def androidVersion = 25
-def androidSupport = "$androidVersion.3.1"
-def buildToolsV = "$androidVersion.0.0"
+def androidVersion = 27
+def androidSupport = "$androidVersion.0.0"
 def dagger = "2.6"
-def butterKnife = "8.2.1"
+def butterKnife = "8.5.1"
 
 def RxAndroid = "1.2.1"
 def RxJava = "1.1.9"
 
 android {
     compileSdkVersion androidVersion
-    buildToolsVersion "$buildToolsV"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "org.ecos.groceryList"
         minSdkVersion 15
         targetSdkVersion androidVersion
         versionCode 1
         versionName "1.0"
-        jackOptions {
-            enabled false
-        }
     }
     buildTypes {
         release {
@@ -48,11 +42,11 @@ dependencies {
     compile "com.android.support:support-v4:$androidSupport"
 
     compile "com.jakewharton:butterknife:$butterKnife"
-    apt "com.jakewharton:butterknife-compiler:$butterKnife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
 
     provided 'javax.annotation:jsr250-api:1.0'
     compile "com.google.dagger:dagger:$dagger"
-    apt "com.google.dagger:dagger-compiler:$dagger"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger"
 
     testCompile "junit:junit:$jUnit"
     testCompile 'org.mockito:mockito-core:1.10.19'
