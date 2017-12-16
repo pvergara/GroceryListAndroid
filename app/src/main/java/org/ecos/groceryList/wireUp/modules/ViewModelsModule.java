@@ -11,6 +11,7 @@ import dagger.Provides;
 
 @Module
 public class ViewModelsModule {
+
     @Provides
     ListCreationViewModel providesListCreationViewModel(BroadcastingService broadcastingService){
         return new ListCreationViewModelImpl(broadcastingService);
@@ -20,5 +21,4 @@ public class ViewModelsModule {
     ItemViewModel providesItemViewModel(BroadcastingService broadcastingService){
         return new ItemViewModelImpl(broadcastingService);
     }
-
 }

@@ -13,10 +13,13 @@ import org.ecos.groceryList.application.GroceryListApplication;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements org.ecos.android.infrastructure.mvvm.view.View {
-
+public class MainActivity
+    extends
+        AppCompatActivity
+    implements
+        org.ecos.android.infrastructure.mvvm.view.View
+{
     private FragmentManager mFragmentManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +33,8 @@ public class MainActivity extends AppCompatActivity implements org.ecos.android.
 
     private void loadDependencies() {
         mFragmentManager = getSupportFragmentManager();
-        GroceryListApplication application = (GroceryListApplication) getApplication();
 
+        GroceryListApplication application = (GroceryListApplication) getApplication();
         application.getGeneralComponent().inject(this);
 
         ButterKnife.bind(this);
