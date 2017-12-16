@@ -47,8 +47,6 @@ public class ListCreationView extends FragmentViewBase {
     @Inject
     BroadcastingService mBroadcastingService;
 
-    private GroceryListApplication mApplication;
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -76,8 +74,7 @@ public class ListCreationView extends FragmentViewBase {
 
     private void loadDependencies(View rootView) {
         mActivity = getActivity();
-        mApplication = (GroceryListApplication) mActivity.getApplication();
-        mApplication.getGeneralComponent().inject(this);
+        GroceryListApplication.getGeneralComponent().inject(this);
         mUnbinder = ButterKnife.bind(this, rootView);
 
         mLayoutManager = new LinearLayoutManager(mActivity);
@@ -106,6 +103,7 @@ public class ListCreationView extends FragmentViewBase {
 
     }
 
+    @SuppressWarnings("unused")
     private void onAddItem(Object newItemSendEventAsObject) {
         mGroceryListView.scrollToPosition(mAdapter.getItemCount() - 1);
         mAdapter.notifyDataSetChanged();

@@ -8,7 +8,7 @@ import org.ecos.groceryList.wireUp.modules.ViewModelsModule;
 
 public class GroceryListApplication extends Application {
 
-    private GeneralComponent mGeneralComponent;
+    private static GeneralComponent mGeneralComponent;
 
     @Override
     public void onCreate() {
@@ -23,7 +23,7 @@ public class GroceryListApplication extends Application {
 
     }
 
-    public GeneralComponent getGeneralComponent() {
+    public static GeneralComponent getGeneralComponent() {
         return mGeneralComponent;
     }
 

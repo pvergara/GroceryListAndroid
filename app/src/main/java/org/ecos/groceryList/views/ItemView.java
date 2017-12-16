@@ -47,17 +47,14 @@ public class ItemView extends FragmentViewBase {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
     }
 
     //TODO: To abstract
     private void loadDependencies(View rootView) {
         mActivity = getActivity();
-        GroceryListApplication application = (GroceryListApplication) mActivity.getApplication();
         mUnbinder = ButterKnife.bind(this,rootView);
 
-        application.getGeneralComponent().inject(this);
-
+        GroceryListApplication.getGeneralComponent().inject(this);
     }
 
     //TODO: To abstract
