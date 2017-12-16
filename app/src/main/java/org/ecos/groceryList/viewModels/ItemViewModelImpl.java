@@ -5,7 +5,6 @@ import org.ecos.core.infrastructure.messaging.BroadcastingService;
 import org.ecos.groceryList.dtos.items.Item;
 import org.ecos.groceryList.dtos.items.Name;
 import org.ecos.groceryList.dtos.items.Quantity;
-import org.ecos.groceryList.events.ItemSentToUpdateEvent;
 import org.ecos.groceryList.events.NewItemSendEvent;
 import org.ecos.groceryList.events.UpdateItemSendEvent;
 import org.ecos.groceryList.exceptions.EmptyQuantityException;
@@ -57,12 +56,12 @@ public class ItemViewModelImpl implements ItemViewModel {
             } catch (SplitterException | EmptyQuantityException |NegativeQuantityException |TooBigQuantityException e) {
                 e.printStackTrace();
             }
+            dismissItemToUpdate();
         }
         else
             mBroadcastingService.sendThis(new NewItemSendEvent(mItemText));
 
         cleanItemText();
-        dismissItemToUpdate();
     }
 
     private boolean isOnUpdateMode() {
@@ -94,17 +93,17 @@ public class ItemViewModelImpl implements ItemViewModel {
             enableActionButton = false;
         mOnChangeListener.onPropertyChange(changeActionStatus,enableActionButton);
     }
-
-    public void onEvent(ItemSentToUpdateEvent event) {
-        mItemToUpdate = event.getItem();
-        if(mItemToUpdate.getQuantity().equals(Quantity.fromDefault()))
-            showItem(mItemToUpdate.getName().toString());
-        else
-            showItem(mItemToUpdate.getName().toString() + " x" + mItemToUpdate.getQuantity().asStringFromInteger());
-    }
-
-    private void showItem(String itemText) {
-        mOnChangeListener.onPropertyChange(changeItemText,itemText);
-    }
+//
+//    public void onEvent(ItemSentToUpdateEvent event) {
+//        mItemToUpdate = event.getItem();
+//        if(mItemToUpdate.getQuantity().equals(Quantity.fromDefault()))
+//            showItem(mItemToUpdate.getName().toString());
+//        else
+//            showItem(mItemToUpdate.getName().toString() + " x" + mItemToUpdate.getQuantity().asStringFromInteger());
+//    }
+//
+//    private void showItem(String itemText) {
+//        mOnChangeListener.onPropertyChange(changeItemText,itemText);
+//    }
 
 }

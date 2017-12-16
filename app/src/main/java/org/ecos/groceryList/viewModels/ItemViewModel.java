@@ -11,9 +11,9 @@ public interface ItemViewModel {
     }
     void init();
 
-    void setItemText(CharSequence itemText);
-
     void deInit();
+
+    void setItemText(CharSequence itemText);
 
     void setOnchangeListener(OnChangeListener onChangeListener);
 
