@@ -6,7 +6,7 @@ import java.util.*
 import java.util.regex.Pattern
 
 class ItemStringSplitter {
-    val itemsNameONEWordONLY = Pattern.compile("^([a-zA-Z]+)$")!!
+    private val itemsNameONEWordONLY = Pattern.compile("^([a-zA-Z]+)$")!!
     private val endsWithQuantity = "\\sx(\\d{1,2})$"
     private val itemsNameONEWordAndQuantity = Pattern.compile("^([a-zA-Z]+)$endsWithQuantity")!!
     private val itemsNameMOREThanOneWordONLY = Pattern.compile("^([a-zA-Z]+\\s[a-zA-Z]+)$")!!

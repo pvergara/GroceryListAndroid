@@ -14,7 +14,6 @@ import java.util.List;
 
 import static org.cthul.matchers.CthulMatchers.matchesPattern;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
@@ -25,7 +24,6 @@ public class BroadcastServiceImplTests {
 
     private BroadcastingEmitter mEmitter;
     private BroadcastingReceiver mListener;
-    private VolumeContainer moreCompleObject;
 
     @BeforeMethod
     public void setUp() throws Exception {
@@ -84,7 +82,7 @@ public class BroadcastServiceImplTests {
         }
 
         assertThat(messages,hasSize(equalTo(1)));
-        assertThat((String)messages.get(0),is(equalTo(theMessage)));
+        assertThat(messages.get(0),is(equalTo(theMessage)));
 
     }
 
